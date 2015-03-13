@@ -11,11 +11,11 @@ DESCRIPTION :
 	After the last run, the watch displays "CALM".
 
 VARIABLES :
+	fastRunLengthMeters = 1000
+	restBetweenRunsSeconds = 120
 	step = 0
 	myDurationSeconds = 0
 	myDistanceKm = 0
-	segmentLengthMeters = 1000
-	restBetweenRepsSeconds = 120
 	restTimeLeft = 0
 	myResultVar = 0
 	runId = 1
@@ -45,7 +45,7 @@ else if (step==1 || step==3 || step==5 || step==7) {
 	/* RUN */
 
 	/* IS THIS RUN OVER ? */
-	if (SUUNTO_DISTANCE - myDistanceKm < segmentLengthMeters/1000) {
+	if (SUUNTO_DISTANCE - myDistanceKm < fastRunLengthMeters/1000) {
 		/* NOT YET */
 		prefix="";
 		myResultVar=runId;
@@ -65,9 +65,9 @@ else if (step==2 || step==4 || step==6) {
 	/* REST */
 
 	/* IS THIS REST OVER ? */
-	if (SUUNTO_DURATION - myDurationSeconds < restBetweenRepsSeconds) {
+	if (SUUNTO_DURATION - myDurationSeconds < restBetweenRunsSeconds) {
 		/* NOT YET */
-		restTimeLeft=restBetweenRepsSeconds-SUUNTO_DURATION+myDurationSeconds;
+		restTimeLeft=restBetweenRunsSeconds-SUUNTO_DURATION+myDurationSeconds;
 		prefix="R";
 		myResultVar=restTimeLeft;
 		postfix="s";
