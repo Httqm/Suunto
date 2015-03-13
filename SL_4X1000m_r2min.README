@@ -1,0 +1,42 @@
+DESCRIPTION :
+	Sortie longue, dont 4x1km à AS10 (5:15/km) avec r=2min
+==========================================8<=========================================================
+SESSION :
+
+step	action
+0		warm up
+1		run 1000m (1)
+2		rest 2'
+3		run 1000m (2)
+4		rest 2'
+5		run 1000m (3)
+6		rest 2'
+7		run 1000m (4)
+8		calm down
+==========================================8<=========================================================
+TESTING :
+	nombre de tour = 0
+	step = 0
+	==> W 0 UP
+
+	qd nb tours passe à 1, step passe à 1
+	==> 1 RUN
+
+	distance = 2 km
+	myDistanceKm=2
+	==> beep + R 120 s
+
+	Durée = 100
+	myDurationSeconds = 100
+	==> R 120 s
+
+	pour chaque s ajoutée à Durée, R n s décrémente
+
+	Durée = 210
+	==> R 10 s
+
+	Durée = 220
+	==> beep + 3 RUN
+
+	Distance = 4
+	==> beep + R 120 s
