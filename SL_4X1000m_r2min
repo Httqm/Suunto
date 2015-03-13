@@ -7,11 +7,14 @@ VARIABLES :
 	restTimeLeft = 0
 	myResultVar = 0
 	runId = 1
+
 ==========================================8<=========================================================
+
 /* While in sport mode do this once per second */
 prefix="";
 RESULT=myResultVar;
 postfix="";
+
 if (step<1) {
 	/* WARM UP */
 	prefix="W";
@@ -56,7 +59,7 @@ else if (step==2 || step==4 || step==6) {
 		prefix="R";
 		myResultVar=restTimeLeft;
 		postfix="s";
-    	}
+		}
 	else {
 		/* YES : REST IS OVER */
 		myResultVar=step;
@@ -75,3 +78,4 @@ else if (step>7) {
 	}
 
 /* THE END */
+
