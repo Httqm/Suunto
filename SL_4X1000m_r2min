@@ -21,7 +21,7 @@ if (step<1) {
 	myResultVar=0;
 	postfix="UP";
 	/* Simulate pressing the "LAP" watch button */
-	if (SUUNTO_LAP_NUMBER > 0) {
+	if (SUUNTO_LAP_NUMBER > 1) {
 		Suunto.alarmBeep();
 		step=step+1;
 		myDurationSeconds=SUUNTO_DURATION;
