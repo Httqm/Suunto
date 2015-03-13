@@ -1,0 +1,132 @@
+
+	++======================++
+	||	SL 4X1000m r2min	||
+	++======================++
+
+==========================================8<=========================================================
+DESCRIPTION :
+
+Sortie longue, dont 4x1km à AS10 (5:15/km) avec r=2min
+==========================================8<=========================================================
+SESSION :
+
+step	action
+0		warm up
+1		run 1000m (1)
+2		rest 2'
+3		run 1000m (2)
+4		rest 2'
+5		run 1000m (3)
+6		rest 2'
+7		run 1000m (4)
+8		calm down
+
+'	<== For syntax highlighting in Emacs ;-)
+
+==========================================8<=========================================================
+VARIABLES :
+step = 0
+myDurationSeconds = 0
+myDistanceKm = 0
+segmentLengthMeters = 1000
+restBetweenRepsSeconds = 120
+restTimeLeft = 0
+myResultVar = 0
+runId = 1
+
+==========================================8<=========================================================
+TESTING :
+	nombre de tour = 0
+	step = 0
+	==> W 0 UP
+
+	qd nb tours passe à 1, step passe à 1
+	==> 1 RUN
+
+	distance = 2 km
+	myDistanceKm=2
+	==> beep + R 120 s
+
+	Durée = 100
+	myDurationSeconds = 100
+	==> R 120 s
+
+	pour chaque s ajoutée à Durée, R n s décrémente
+
+	Durée = 210
+	==> R 10 s
+
+	Durée = 220
+	==> beep + 3 RUN
+
+	Distance = 4
+	==> beep + R 120 s
+
+==========================================8<=========================================================
+/* While in sport mode do this once per second */
+prefix="";
+RESULT=myResultVar;
+postfix="";
+if (step<1) {
+	/* WARM UP */
+	prefix="W";
+	myResultVar=0;
+	postfix="UP";
+	/* Simulate pressing the "LAP" watch button */
+	if (SUUNTO_LAP_NUMBER > 0) {
+		Suunto.alarmBeep();
+		step=step+1;
+		myDurationSeconds=SUUNTO_DURATION;
+		myDistanceKm=SUUNTO_DISTANCE;
+		}
+	}
+
+else if (step==1 || step==3 || step==5 || step==7) {
+	/* RUN */
+
+	/* IS THIS RUN OVER ? */
+	if (SUUNTO_DISTANCE - myDistanceKm < segmentLengthMeters/1000) {
+		/* NOT YET */
+		prefix="";
+		myResultVar=runId;
+		postfix="RUN";
+		}
+	else {
+		/* YES : RUN IS OVER */
+		Suunto.alarmBeep();
+		step=step+1;
+		runId=runId+1;
+		myDurationSeconds=SUUNTO_DURATION;
+		myDistanceKm=SUUNTO_DISTANCE;
+		}
+	}
+
+else if (step==2 || step==4 || step==6) {
+	/* REST */
+
+	/* IS THIS REST OVER ? */
+	if (SUUNTO_DURATION - myDurationSeconds < restBetweenRepsSeconds) {
+		/* NOT YET */
+		restTimeLeft=restBetweenRepsSeconds-SUUNTO_DURATION+myDurationSeconds;
+		prefix="R";
+		myResultVar=restTimeLeft;
+		postfix="s";
+    	}
+	else {
+		/* YES : REST IS OVER */
+		myResultVar=step;
+		Suunto.alarmBeep();
+		step=step+1;
+		myDurationSeconds=SUUNTO_DURATION;
+		myDistanceKm=SUUNTO_DISTANCE;
+		}
+	}
+
+else if (step>7) {
+	/* CALM DOWN */
+	prefix="";
+	myResultVar=step;
+	postfix="CALM";
+	}
+
+/* THE END */
