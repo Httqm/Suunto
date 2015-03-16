@@ -1,8 +1,11 @@
 /*
 DESCRIPTION :
 	VMA training (no duration/distance specified)
-	including 4x1500m fast runs (no pace specified)
-	with 2 minutes rest between fast runs.
+	Includes 4 fast runs in which :
+		- length
+		- pace
+		- rest between runs
+		are specified by init. variables.
 
 
 	Upon starting exercice, the app is in "Warmup" mode, until the 'LAP' button is pressed for the 1st fast run.
@@ -21,8 +24,8 @@ VARIABLES :
 	paceAlertTooFast = 0			don't edit
 	paceAlertTooSlow = 0			don't edit
 
-	paceMarginPercent = 10			OK if running within +/- 10% of target pace
-
+	paceMarginPercent = 8			can be edited. Means "OK if running within +/-8% of target pace".
+									With margin = 8% and target pace = 5:15min/km, fastest = 4:49, slowest = 5:40
 
 	step = 0						don't edit
 	myDurationSeconds = 0			don't edit
