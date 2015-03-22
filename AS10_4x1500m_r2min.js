@@ -91,6 +91,10 @@ else if (step==1 || step==3 || step==5 || step==7) {
 		Suunto.alarmBeep();
 		step=step+1;
 		runId=runId+1;
+		/*
+		SUUNTO_LAP_NUMBER=SUUNTO_LAP_NUMBER+1;
+		This would be great but is not supported so far :-(
+		*/
 		myDurationSeconds=SUUNTO_DURATION;
 		myDistanceKm=SUUNTO_DISTANCE;
 		}
@@ -112,6 +116,10 @@ else if (step==2 || step==4 || step==6) {
 		myResultVar=step;
 		Suunto.alarmBeep();
 		step=step+1;
+		/*
+		SUUNTO_LAP_NUMBER=SUUNTO_LAP_NUMBER+1;
+		This would be great but is not supported so far :-(
+		*/
 		myDurationSeconds=SUUNTO_DURATION;
 		myDistanceKm=SUUNTO_DISTANCE;
 		}
