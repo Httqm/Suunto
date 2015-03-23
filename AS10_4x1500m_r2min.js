@@ -44,6 +44,8 @@ VARIABLES :
 	restTimeLeft = 0				don't edit
 	myResultVar = 0					don't edit
 	runId = 1						don't edit
+
+	==> Don't forget to set the result format to 0 decimal.
 */
 
 
