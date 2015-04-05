@@ -82,9 +82,9 @@ if (step < 1) {
 	else {
 		/* NOT YET */
 		timeLeft = endOfStepSeconds - SUUNTO_DURATION;
-		prefix = "Wup";	/* 'Warm up' */
+		prefix = "WUP";	/* 'Warm up' */
 		myResultVar = timeLeft;
-		postfix = "s";	/* 'seconds' */
+		postfix = "S";	/* 'seconds' */
 		}
 	}
 
@@ -105,15 +105,15 @@ else if (step == 1 || step == 3) {
 	else {
 		/* NOT YET */
 		timeLeft = endOfStepSeconds - SUUNTO_DURATION;
-		prefix = "Run";
+		prefix = "RUN";
 		myResultVar = timeLeft;
 
 		/* HEART RATE CONTROL */
 		if (SUUNTO_HR < (SUUNTO_USER_MAX_HR * heartRatePercentLow / 100 )) {
-			postfix = "s+";	/* 'seconds', and speed up */
+			postfix = "S++";	/* 'seconds', and speed up */
 			}
 		if (SUUNTO_HR > (SUUNTO_USER_MAX_HR * heartRatePercentHigh / 100 )) {
-			postfix = "s-";	/* 'seconds', and slow down */
+			postfix = "S--";	/* 'seconds', and slow down */
 			}
 		}
 	}
@@ -135,9 +135,9 @@ else if (step == 2) {
 	else {
 		/* NOT YET */
 		timeLeft = restBetweenRunsSeconds - SUUNTO_DURATION + myDurationSeconds;
-		prefix = "Rst";	/* 'Rest' */
+		prefix = "RST";	/* 'Rest' */
 		myResultVar = timeLeft;
-		postfix = "s";	/* 'seconds' */
+		postfix = "S";	/* 'seconds' */
 		}
 	}
 
@@ -157,9 +157,9 @@ else if (step == 4) {
 	else {
 		/* NOT YET */
 		timeLeft = endOfStepSeconds - SUUNTO_DURATION;
-		prefix = "Con";	/* 'Continue' */
+		prefix = "CON";	/* 'Continue' */
 		myResultVar = timeLeft;
-		postfix = "s";	/* 'seconds' */
+		postfix = "S";	/* 'seconds' */
 		}
 	}
 
@@ -179,9 +179,9 @@ else if (step == 5) {
 	else {
 		/* NOT YET */
 		timeLeft = endOfStepSeconds - SUUNTO_DURATION;
-		prefix = "Cal";	/* ' Calm' */
+		prefix = "CAL";	/* ' Calm' */
 		myResultVar = timeLeft;
-		postfix = "s";	/* 'seconds' */
+		postfix = "S";	/* 'seconds' */
 		}
 	}
 
