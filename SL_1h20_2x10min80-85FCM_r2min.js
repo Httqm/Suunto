@@ -68,7 +68,6 @@ if (step < 1) {
 	/* IS THE WARM-UP OVER ? */
 	if (SUUNTO_DURATION > endOfStepSeconds) {
 		/* YES */
-		Suunto.alarmBeep();
 		prefix = "H";
 		myResultVar = 0;
 		postfix = "T";	/* ==> 'HOT' ;-) */
