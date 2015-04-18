@@ -1,8 +1,8 @@
 /*
-######################################### virtualPartner.js #########################################
-# version : 20150412
+######################################### virtualPartner_training.js ################################
+# version : 20150418
 #
-# DESCRIPTION : this app is dedicated to running competitions. It assumes you are running with a
+# DESCRIPTION : this app is dedicated to prepare for competitions. It assumes you are running with a
 #	virtual partner who's running ALWAYS EXACTLY at your specified pace. This application computes
 #	your relative position towards this partner and tells you whether you're in advance or running late.
 #
