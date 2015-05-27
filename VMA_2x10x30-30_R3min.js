@@ -1,6 +1,6 @@
 /*
 ######################################### VMA 2x10x30-30 R3min ##################################
-# version : 20150526
+# version : 20150527
 #
 # DESCRIPTION :
 # 	Training :
@@ -54,6 +54,10 @@
 ########################################## ##########################################################
 */
 
+/* While in sport mode do this once per second */
+prefix = "";
+RESULT = myResultVar;
+postfix = "";
 
 /***********
  * WARM UP *
@@ -72,6 +76,7 @@ if (step < 1) {
 		if (SUUNTO_LAP_NUMBER > 1) {
 			Suunto.alarmBeep();
 			step = 1;
+			myDurationSeconds = SUUNTO_DURATION;
 			}
 		}
 	else {
@@ -89,7 +94,7 @@ if (step < 1) {
  *******/
 else if (step==1 || step==3 || step==5 || step==7 || step==9 || step==11 || step==13 || step==15 || step==17 || step==19 || step==21 || step==23 || step==25 || step==27 || step==29 || step==31 || step==33 || step==35 || step==37 || step==39) {
 
-	endOfStepSeconds = SUUNTO_DURATION + runDurationSeconds;
+	endOfStepSeconds = myDurationSeconds + runDurationSeconds;
 
 	/* IS THIS RUN OVER ? */
 	if (SUUNTO_DURATION > endOfStepSeconds) {
@@ -124,6 +129,7 @@ else if (step==2 || step==4 || step==6 || step==8 || step==10 || step==12 || ste
 		/* YES : REST IS OVER */
 		Suunto.alarmBeep();
 		step = step + 1;
+		myDurationSeconds = SUUNTO_DURATION;
 		}
 	else {
 		/* NOT YET */
@@ -142,13 +148,5 @@ else if (step > 39) {
 	prefix = "CALM";
 	}
 
-
-/**********************
- * DISPLAY THE RESULT *
- *********************/
-
-prefix = "";
-RESULT = myResultVar;
-postfix = "";
 
 /* THE END */
