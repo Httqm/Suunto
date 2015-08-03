@@ -1,6 +1,6 @@
 /*
 ######################################### VMA 2x10x200m r30s R3min ##################################
-# version : 20150406
+# version : 20150803
 #
 # DESCRIPTION :
 # 	Training :
@@ -48,6 +48,11 @@
 # 	restDurationSeconds = 0			don't edit
 #
 # 	==> Don't forget to set the result format to 0 decimal.
+#
+# SUGGESTED WATCH SCREEN CONFIGURATION :
+#	- pace
+#	- VMA 2x10x30-30 R3min
+#	- distance
 ########################################## ##########################################################
 */
 
