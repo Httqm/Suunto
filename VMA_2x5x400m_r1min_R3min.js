@@ -14,7 +14,7 @@
 # 			- duration :	free
 # 			- distance :	400m
 # 			- HR :			free
-# 			- pace :		VMA 95
+# 			- pace :		VMA 95 (4:13min/km +/- 8%)
 # 			- short rest : 	1min
 # 			- long rest : 	3min
 #
@@ -24,6 +24,10 @@
 #
 # 	RUNS :
 # 		The watch displays "RUN 1" during the 1st fast run, "RUN 2" during the 2nd fast run, and so on.
+#		The built-in pace monitor will warn by displaying if the running pace is :
+#			- too fast		: "RUN n --"
+#			- within specs	: "RUN n"
+#			- too slow 		: "RUN n ++"
 #
 # 	RESTS :
 # 		During rests, the watch displays the number of remaining seconds : "RST n S".
@@ -36,6 +40,18 @@
 # 	runLengthMeters = 400				can be edited
 # 	restBetweenRepsSeconds = 60			can be edited
 # 	restBetweenSeriesSeconds = 180		can be edited
+#
+#
+#	PACE MONITORING
+# 	==> this declares the target run pace as 4:13 min/km
+# 	targetPacePerKmMinutes = 4		can be edited
+# 	targetPacePerKmSeconds = 13		can be edited
+# 	targetPace = 0					don't edit
+# 	paceAlertTooFast = 0			don't edit
+# 	paceAlertTooSlow = 0			don't edit
+#
+# 	paceMarginPercent = 8			can be edited. Means "OK if running within +/-8% of target pace".
+# 									With margin = 8% and target pace = 4:13min/km, fastest = 3:51, slowest = 4:32
 #
 # 	step = 0						don't edit
 # 	myDurationSeconds = 0			don't edit
@@ -79,6 +95,12 @@ if (step < 1) {
 		if (SUUNTO_LAP_NUMBER > 1) {
 			Suunto.alarmBeep();
 			step = 1;
+
+			/* initialize values for pace monitoring */
+			targetPace = targetPacePerKmMinutes + (targetPacePerKmSeconds / 60);
+			paceAlertTooFast = targetPace * (100 - paceMarginPercent) / 100;	/* these are minutes/km, so the lower the value, the faster you run */
+			paceAlertTooSlow = targetPace * (100 + paceMarginPercent) / 100;	/* ...and vice-versa ;-) */
+
 			myDistanceKm = SUUNTO_DISTANCE;
 			}
 		}
@@ -111,6 +133,11 @@ else if (step==1 || step==3 || step==5 || step==7 || step==9 || step==11 || step
 		/* NOT YET */
 		prefix = "RUN";
 		myResultVar = runId;
+
+		/* PACE MONITOR */
+		postfix="";
+		if (SUUNTO_PACE > paceAlertTooSlow) { postfix="++"; }
+		if (SUUNTO_PACE < paceAlertTooFast) { postfix="--"; }
 		}
 	}
 
