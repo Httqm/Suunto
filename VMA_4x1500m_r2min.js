@@ -1,40 +1,43 @@
 /*
-DESCRIPTION :
-	VMA training (no duration/distance specified)
-	Includes 4 fast runs in which :
-		- length
-		- pace
-		- rest between runs
-		are specified by init. variables.
-
-
-	Upon starting exercice, the app is in "Warmup" mode, until the 'LAP' button is pressed for the 1st fast run.
-	The watch displays "1 RUN" during the 1st fast run, "2 RUN" during the 2nd fast run, and so on.
-	During rests, the watch displays the number of remaining seconds : " R n s".
-	After the last run, the watch displays "CALM".
-
-VARIABLES :
-	fastRunLengthMeters = 1500		can be edited
-	restBetweenRunsSeconds = 120	can be edited
-
-	==> this declares the target run pace as 5:15 min/km (=5.25min/km)
-	targetPacePerKmMinutes = 5		can be edited
-	targetPacePerKmSeconds = 15		can be edited
-	targetPace = 0					don't edit
-	paceAlertTooFast = 0			don't edit
-	paceAlertTooSlow = 0			don't edit
-
-	paceMarginPercent = 8			can be edited. Means "OK if running within +/-8% of target pace".
-									With margin = 8% and target pace = 5:15min/km, fastest = 4:49, slowest = 5:40
-
-	step = 0						don't edit
-	myDurationSeconds = 0			don't edit
-	myDistanceKm = 0				don't edit
-	restTimeLeft = 0				don't edit
-	myResultVar = 0					don't edit
-	runId = 1						don't edit
+######################################### VMA 4x1500m r2min #########################################
+# version : 20150809
+#
+# DESCRIPTION :
+# 	VMA training (no duration/distance specified)
+# 	Includes 4 fast runs in which :
+# 		- length
+# 		- pace
+# 		- rest between runs
+# 		are specified by init. variables.
+#
+#
+# 	Upon starting exercice, the app is in "Warmup" mode, until the 'LAP' button is pressed for the 1st fast run.
+# 	The watch displays "1 RUN" during the 1st fast run, "2 RUN" during the 2nd fast run, and so on.
+# 	During rests, the watch displays the number of remaining seconds : " R n s".
+# 	After the last run, the watch displays "CALM".
+#
+# VARIABLES :
+# 	fastRunLengthMeters = 1500		can be edited
+# 	restBetweenRunsSeconds = 120	can be edited
+#
+# 	==> this declares the target run pace as 5:15 min/km (=5.25min/km)
+# 	targetPacePerKmMinutes = 5		can be edited
+# 	targetPacePerKmSeconds = 15		can be edited
+# 	targetPace = 0					don't edit
+# 	paceAlertTooFast = 0			don't edit
+# 	paceAlertTooSlow = 0			don't edit
+#
+# 	paceMarginPercent = 8			can be edited. Means "OK if running within +/-8% of target pace".
+# 									With margin = 8% and target pace = 5:15min/km, fastest = 4:49, slowest = 5:40
+#
+# 	step = 0						don't edit
+# 	myDurationSeconds = 0			don't edit
+# 	myDistanceKm = 0				don't edit
+# 	restTimeLeft = 0				don't edit
+# 	myResultVar = 0					don't edit
+# 	runId = 1						don't edit
+########################################## ##########################################################
 */
-
 
 /* While in sport mode do this once per second */
 prefix="";
@@ -46,7 +49,7 @@ if (step<1) {
 	prefix="W";
 	myResultVar=0;
 	postfix="UP";
-	/* Simulate pressing the "LAP" watch button */
+	/* Press the "LAP" watch button to go for the first run */
 	if (SUUNTO_LAP_NUMBER > 1) {
 		Suunto.alarmBeep();
 		step=1;

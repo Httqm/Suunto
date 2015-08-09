@@ -1,6 +1,6 @@
 /*
 ######################################### AS10 4x1500m R2min ########################################
-# version : 20150602
+# version : 20150809
 #
 # DESCRIPTION :
 #	long training (no duration/distance/pace specified)
@@ -49,7 +49,7 @@
 #	paceAlertTooSlow = 0				don't edit
 #	myDurationSeconds = 0				don't edit
 #	myDistanceKm = 0					don't edit
-#	timeLeft = 0					don't edit
+#	timeLeft = 0						don't edit
 #	myResultVar = 0						don't edit
 #	runId = 1							don't edit
 #
@@ -82,7 +82,7 @@ if (step < 1) {
 		myResultVar = 0;
 		postfix = "T";	/* ==> 'HOT' ;-) */
 
-		/* This is triggered by pressing the "LAP" watch button */
+		/* Press the "LAP" watch button to go for the first run */
 		if (SUUNTO_LAP_NUMBER > 1) {
 			Suunto.alarmBeep();
 			step = 1;

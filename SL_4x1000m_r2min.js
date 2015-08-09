@@ -1,26 +1,32 @@
 /*
-DESCRIPTION :
-	long training (no duration/distance specified)
-	including 4x1000m fast runs (no pace specified)
-	with 2 minutes rest between fast runs.
-
-
-	Upon starting exercice, the app is in "Warmup" mode, until the 'LAP' button is pressed for the 1st 1000m fast run.
-	The watch displays "1 RUN" during the 1st fast run, "2 RUN" during the 2nd fast run, and so on.
-	During rests, the watch displays the number of remaining seconds : " R n s".
-	After the last run, the watch displays "CALM".
-
-VARIABLES :
-	fastRunLengthMeters = 1000
-	restBetweenRunsSeconds = 120
-	step = 0
-	myDurationSeconds = 0
-	myDistanceKm = 0
-	restTimeLeft = 0
-	myResultVar = 0
-	runId = 1
+######################################### SL 4x1000m r2min ##########################################
+# version : 20150809
+#
+# DESCRIPTION :
+# 	long training (no duration/distance specified)
+# 	including 4x1000m fast runs (no pace specified)
+# 	with 2 minutes rest between fast runs.
+#
+#
+# 	Upon starting exercice, the app is in "Warmup" mode, until the 'LAP' button is pressed for the 1st 1000m fast run.
+# 	The watch displays "1 RUN" during the 1st fast run, "2 RUN" during the 2nd fast run, and so on.
+# 	During rests, the watch displays the number of remaining seconds : " R n s".
+# 	After the last run, the watch displays "CALM".
+#
+# VARIABLES :
+# 	fastRunLengthMeters = 1000
+# 	restBetweenRunsSeconds = 120
+# 	step = 0
+# 	myDurationSeconds = 0
+# 	myDistanceKm = 0
+# 	restTimeLeft = 0
+# 	myResultVar = 0
+# 	runId = 1
+#
+# SUGGESTED WATCH SCREEN CONFIGURATION :
+#	(TODO)
+########################################## ##########################################################
 */
-
 
 /* While in sport mode do this once per second */
 prefix="";
@@ -32,7 +38,7 @@ if (step<1) {
 	prefix="W";
 	myResultVar=0;
 	postfix="UP";
-	/* Simulate pressing the "LAP" watch button */
+	/* Press the "LAP" watch button to go for the first run */
 	if (SUUNTO_LAP_NUMBER > 1) {
 		Suunto.alarmBeep();
 		step=step+1;
@@ -90,4 +96,3 @@ else if (step>7) {
 	}
 
 /* THE END */
-

@@ -1,6 +1,6 @@
 /*
 ######################################### VMA 2x10x200m r30s R3min ##################################
-# version : 20150803
+# version : 20150809
 #
 # DESCRIPTION :
 # 	Training :
@@ -76,7 +76,7 @@ if (step < 1) {
 		myResultVar = 0;
 		postfix = "T";	/* ==> 'HOT' ;-) */
 
-		/* Simulate pressing the "STEP" watch button */
+		/* Press the "LAP" watch button to go for the first run */
 		if (SUUNTO_LAP_NUMBER > 1) {
 			Suunto.alarmBeep();
 			step = 1;
