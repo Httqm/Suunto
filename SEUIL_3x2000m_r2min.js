@@ -1,51 +1,56 @@
 /*
-DESCRIPTION :
-	long training (no duration/distance specified)
-	Includes 3 fast runs in which :
-		- length
-		- pace
-		- rest between runs
-		are specified by init. variables.
-		The number of fast runs can not configured.
-
-	WARM UP :
-		Upon starting exercice, the app is in "Warmup" mode, until the 'LAP' button is pressed for the 1st fast run.
-
-	RUNS :
-		The watch displays "1 RUN" during the 1st fast run, "2 RUN" during the 2nd fast run, and so on.
-
-	PACE CONTROL :
-		If running too fast (target pace + margin%), the display will be " n Run-".
-		If running too slow, the display will be " n Run+".
-
-	RESTS :
-		During rests, the watch displays the number of remaining seconds : " R n s".
-
-	CALM DOWN :
-		After the last run, the watch displays "CALM".
-
-VARIABLES :
-	fastRunLengthMeters = 2000		can be edited
-	restBetweenRunsSeconds = 120	can be edited
-
-	==> this declares the target run pace as 5:15 min/km (=5.25min/km)
-	targetPacePerKmMinutes = 5		can be edited
-	targetPacePerKmSeconds = 15		can be edited
-	targetPace = 0					don't edit
-	paceAlertTooFast = 0			don't edit
-	paceAlertTooSlow = 0			don't edit
-
-	paceMarginPercent = 8			can be edited. Means "OK if running within +/-8% of target pace".
-									With margin = 8% and target pace = 5:15min/km, fastest = 4:49, slowest = 5:40
-
-	step = 0						don't edit
-	myDurationSeconds = 0			don't edit
-	myDistanceKm = 0				don't edit
-	restTimeLeft = 0				don't edit
-	myResultVar = 0					don't edit
-	runId = 1						don't edit
-
-	==> Don't forget to set the result format to 0 decimal.
+######################################### SEUIL 3x2000m r2min #######################################
+# DESCRIPTION :
+# 	long training (no duration/distance specified)
+# 	Includes 3 fast runs in which :
+# 		- length
+# 		- pace
+# 		- rest between runs
+# 		are specified by init. variables.
+# 		The number of fast runs can not configured.
+#
+# 	WARM UP :
+# 		Upon starting exercice, the app is in "Warmup" mode, until the 'LAP' button is pressed for the 1st fast run.
+#
+# 	RUNS :
+# 		The watch displays "1 RUN" during the 1st fast run, "2 RUN" during the 2nd fast run, and so on.
+#
+# 	PACE CONTROL :
+# 		If running too fast (target pace + margin%), the display will be " n Run-".
+# 		If running too slow, the display will be " n Run+".
+#
+# 	RESTS :
+# 		During rests, the watch displays the number of remaining seconds : " R n s".
+#
+# 	CALM DOWN :
+# 		After the last run, the watch displays "CALM".
+#
+# VARIABLES :
+# 	fastRunLengthMeters = 2000		can be edited
+# 	restBetweenRunsSeconds = 120	can be edited
+#
+# 	==> this declares the target run pace as 5:15 min/km (=5.25min/km)
+# 	targetPacePerKmMinutes = 5		can be edited
+# 	targetPacePerKmSeconds = 15		can be edited
+# 	targetPace = 0					don't edit
+# 	paceAlertTooFast = 0			don't edit
+# 	paceAlertTooSlow = 0			don't edit
+#
+# 	paceMarginPercent = 8			can be edited. Means "OK if running within +/-8% of target pace".
+# 									With margin = 8% and target pace = 5:15min/km, fastest = 4:49, slowest = 5:40
+#
+# 	step = 0						don't edit
+# 	myDurationSeconds = 0			don't edit
+# 	myDistanceKm = 0				don't edit
+# 	restTimeLeft = 0				don't edit
+# 	myResultVar = 0					don't edit
+# 	runId = 1						don't edit
+#
+# 	==> Don't forget to set the result format to 0 decimal.
+#
+# SUGGESTED WATCH SCREEN CONFIGURATION :
+#	- TODO
+########################################## ##########################################################
 */
 
 
