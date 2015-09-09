@@ -18,13 +18,20 @@
 # 			- short rest : 	30s
 # 			- long rest : 	3min
 #
-# 	WARM UP :
-# 		Upon starting exercice, the app is in "Warmup" mode, until the 'LAP' button is pressed for the 1st fast run.
-# 		After the 'warmUpMinimumDurationMinutes' is over, the watch displays 'H 0 T'
+#	WARM UP :
+#		Upon starting exercice, the app is in "warm up" mode for at least 'warmUpMinimumDurationMinutes'
+#		minutes and until the 'LAP' button is pressed for the 1st fast run.
+#		During these 'warmUpMinimumDurationMinutes' minutes, the watch displays the number
+#		of remaining seconds : "W n S".
+# 		When the warm-up is over, the watch displays 'H 0 T'.
 #
 # 	RUNS :
 # 		The watch displays "RUN 1" during the 1st fast run, "RUN 2" during the 2nd fast run, and so on.
 #
+#	PACE CONTROL :
+#		If running too fast (target pace - margin%), the display will be "Run n --".
+#		If running too slow, the display will be "Run n ++".
+
 # 	RESTS :
 # 		During rests, the watch displays the number of remaining seconds : "RST n S".
 #
@@ -78,7 +85,7 @@ if (step < 1) {
 		myResultVar = 0;
 		postfix = "T";	/* ==> 'HOT' ;-) */
 
-		/* This is triggered by pressing the "LAP" watch button */
+		/* Press the "LAP" watch button to go for the first run */
 		if (SUUNTO_LAP_NUMBER > 1) {
 			Suunto.alarmBeep();
 			step = 1;

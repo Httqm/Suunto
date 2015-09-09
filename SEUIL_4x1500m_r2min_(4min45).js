@@ -15,7 +15,8 @@
 #		Upon starting exercice, the app is in "warm up" mode for at least 'warmUpMinimumDurationMinutes'
 #		minutes and until the 'LAP' button is pressed for the 1st fast run.
 #		During these 'warmUpMinimumDurationMinutes' minutes, the watch displays the number
-#		of remaining seconds : "W n S" .
+#		of remaining seconds : "W n S".
+# 		When the warm-up is over, the watch displays 'H 0 T'.
 #
 #	RUNS :
 #		The watch displays "1 RUN" during the 1st fast run, "2 RUN" during the 2nd fast run, and so on.
