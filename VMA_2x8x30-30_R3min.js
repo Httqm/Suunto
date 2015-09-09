@@ -14,7 +14,7 @@
 # 			- duration :	30s
 # 			- distance :	free
 # 			- HR :			free
-# 			- pace :		VMA 100
+# 			- pace :		VMA 100 (4:00 min/km)
 # 			- short rest : 	30s
 # 			- long rest : 	3min
 #
@@ -36,6 +36,12 @@
 # 	runDurationSeconds = 30				can be edited
 # 	restBetweenRepsSeconds = 30			can be edited
 # 	restBetweenSeriesMinutes = 3		can be edited
+#
+#	==> this declares the target run pace as 4:00 min/km
+#	targetPacePerKmMinutes = 4			can be edited
+#	targetPacePerKmSeconds = 0			can be edited
+#	paceMarginPercent = 8				can be edited. Means "OK if running within +/-8% of target pace".
+#										With margin = 8% and target pace = 4:45min/km, fastest = 3:40, slowest = 4:19
 #
 # 	step = 0						don't edit
 # 	myDurationSeconds = 0			don't edit
@@ -77,6 +83,11 @@ if (step < 1) {
 			Suunto.alarmBeep();
 			step = 1;
 			myDurationSeconds = SUUNTO_DURATION;
+
+			/* initialize values for pace monitoring */
+			targetPace = targetPacePerKmMinutes + (targetPacePerKmSeconds / 60);
+			paceAlertTooFast = targetPace * (100 - paceMarginPercent) / 100;	/* these are minutes/km, so the lower the value, the faster you run */
+			paceAlertTooSlow = targetPace * (100 + paceMarginPercent) / 100;	/* ...and vice-versa ;-) */
 			}
 		}
 	else {
@@ -108,6 +119,11 @@ else if (step==1 || step==3 || step==5 || step==7 || step==9 || step==11 || step
 		/* NOT YET */
 		prefix = "RUN";
 		myResultVar = runId;
+
+		/* PACE MONITORING */
+		postfix = "";
+		if (SUUNTO_PACE > paceAlertTooSlow) { postfix = "++"; }
+		if (SUUNTO_PACE < paceAlertTooFast) { postfix = "--"; }
 		}
 	}
 
