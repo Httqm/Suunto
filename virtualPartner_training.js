@@ -1,8 +1,9 @@
 /*
 ######################################### virtualPartner_training.js ################################
-# version : 20150418
+# version : 20150913
 #
-# DESCRIPTION : this app is dedicated to prepare for competitions. It assumes you are running with a
+# DESCRIPTION :
+#	this app is dedicated to prepare for competitions. It assumes you are running with a
 #	virtual partner who's running ALWAYS EXACTLY at your specified pace. This application computes
 #	your relative position towards this partner and tells you whether you're in advance or running late.
 #
@@ -13,15 +14,16 @@
 #	The watch will beep at the end of the specified distance, because there is no 'FINISH' line during trainings.
 #
 # VARIABLES :
-#
-#	runningLengthKm = 5							can be edited
+# 	warmUpMinimumDurationMinutes = 15			can be edited
+#	runningLengthKm = 100						can be edited	==> use any big number if unspecified by training program
 #	targetPacePerKmMinutes = 5					can be edited	==> declares the target run pace
-#	targetPacePerKmSeconds = 15					can be edited	==> as 5:15 min/km (=5.25min/km)
+#	targetPacePerKmSeconds = 0					can be edited	==> as 5:00 min/km
 #	targetPaceMinutesPerKm = 0					don't edit
 #
+# 	endOfStepSeconds = 0						don't edit
 # 	step = 0									don't edit
-#	warmUpLengthKm = 0							don't edit
-#	warmUpDurationSeconds = 0					don't edit
+#	warmUpEffectiveLengthKm = 0					don't edit
+#	warmUpEffectiveDurationSeconds = 0			don't edit
 #	elapsedTimeSinceStartRunningMinutes = 0		don't edit
 #
 #
@@ -29,34 +31,46 @@
 #
 # SUGGESTED WATCH SCREEN CONFIGURATION :
 #	- pace
-#	- Virtual Partner
+#	- this app
 #	- distance
-#
 ########################################## ##########################################################
 */
 
-
 /* While in sport mode do this once per second */
-
+prefix = "";
+RESULT = myResultVar;
+postfix = "";
 
 /***********
  * WARM UP *
  ***********/
 if (step < 1) {
 
-	/* End the 'warm-up' and enter the 'Running' mode by pressing the 'LAP' watch button. */
-	if (SUUNTO_LAP_NUMBER > 1) {
-		warmUpLengthKm = SUUNTO_DISTANCE;
-		warmUpDurationSeconds = SUUNTO_DURATION;
-		Suunto.alarmBeep();
-		step = 1;
-		targetPaceMinutesPerKm = targetPacePerKmMinutes + (targetPacePerKmSeconds / 60);
+	endOfStepSeconds = warmUpMinimumDurationMinutes * 60;
+
+	/* IS THE WARM-UP OVER ? */
+	if (SUUNTO_DURATION > endOfStepSeconds) {
+		/* YES */
+		prefix = "H";
+		myResultVar = 0;
+		postfix = "T";	/* ==> 'HOT' ;-) */
+
+
+		/* End the 'warm-up' and enter the 'Running' mode by pressing the 'LAP' watch button. */
+		if (SUUNTO_LAP_NUMBER > 1) {
+			warmUpEffectiveLengthKm = SUUNTO_DISTANCE;
+			warmUpEffectiveDurationSeconds = SUUNTO_DURATION;
+			Suunto.alarmBeep();
+			step = 1;
+			targetPaceMinutesPerKm = targetPacePerKmMinutes + (targetPacePerKmSeconds / 60);
+			}
 		}
 	else {
-		/* No button pressed, still warming up */
-		prefix = "WARM";
-		RESULT = 0;
-		postfix = "UP";
+		/* NOT YET */
+		timeLeft = endOfStepSeconds - SUUNTO_DURATION;
+		prefix = "WUP";	/* 'Warm up' */
+		myResultVar = timeLeft;
+		postfix = "S";	/* 'seconds' */
 		}
 	}
 
@@ -67,7 +81,7 @@ if (step < 1) {
 else if (step == 1) {
 
 	/* IS THIS RUN OVER ? */
-	if(SUUNTO_DISTANCE > (warmUpLengthKm + runningLengthKm)) {
+	if(SUUNTO_DISTANCE > (warmUpEffectiveLengthKm + runningLengthKm)) {
 		/* YES : RUN IS OVER */
 		Suunto.alarmBeep();
 		step = step + 1;
@@ -84,17 +98,17 @@ else if (step == 1) {
 		==> This includes the distance covered during warm up.
 
 		My Virtual Partner position is :
-			virtualPartnerPositionKm = warmUpLengthKm + (elapsedTimeSinceStartRunningMinutes / targetPaceMinutesPerKm);
+			virtualPartnerPositionKm = warmUpEffectiveLengthKm + kmRunByVirtualPartnerInRunMode
 		And :
 			RESULT = (SUUNTO_DISTANCE - virtualPartnerPositionKm) * 1000;
 
 			RESULT < 0 : VP is ahead of me
 			RESULT > 0 : I am ahead of VP
 		*/
-		elapsedTimeSinceStartRunningMinutes = (SUUNTO_DURATION - warmUpDurationSeconds) / 60;
+		elapsedTimeSinceStartRunningMinutes = (SUUNTO_DURATION - warmUpEffectiveDurationSeconds) / 60;
 
 		prefix = "VP0";
-		RESULT = (SUUNTO_DISTANCE - (warmUpLengthKm + (elapsedTimeSinceStartRunningMinutes / targetPaceMinutesPerKm))) * 1000;
+		myResultVar = (SUUNTO_DISTANCE - (warmUpEffectiveLengthKm + (elapsedTimeSinceStartRunningMinutes / targetPaceMinutesPerKm))) * 1000;
 		postfix = "m";
 		}
 	}
