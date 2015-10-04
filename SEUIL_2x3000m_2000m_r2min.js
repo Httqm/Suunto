@@ -68,14 +68,6 @@ prefix  = "";
 RESULT  = myResultVar;
 postfix = "";
 
-#0	wup
-#1	3000
-#2	rst 2min
-#3	3000
-#4	rst 2min
-#5	2000
-#6	calm
-
 /***********
  * WARM UP *
  **********/
