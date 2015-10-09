@@ -1,30 +1,28 @@
 /*
 ######################################### virtualPartner_competition.js #############################
-# version : 20150418
+# version : 20151010
 #
 # DESCRIPTION : this app is dedicated to running competitions. It assumes you are running with a
 #	virtual partner who's running ALWAYS EXACTLY at your specified pace. This application computes
-#	your relative position towards this partner and tells you whether you're in advance or running late.
+#	your relative position towards this partner and tells you whether you're ahead or running late.
 #
 #	There is NO 'warm up' mode : upon starting, the application assumes the race begins. The virtual
 #	partner instantly starts running at the specified pace, and keeps running until the exercice is stopped.
 #
 # VARIABLES :
 #
-#	targetPacePerKmMinutes = 5					can be edited	==> declares the target run pace
-#	targetPacePerKmSeconds = 15					can be edited	==> as 5:15 min/km (=5.25min/km)
-#	targetPaceMinutesPerKm = 0					don't edit
+#	targetPacePerKmMinutes = 4		can be edited	==> declares the target run pace
+#	targetPacePerKmSeconds = 45		can be edited	==> as 4:45 min/km
+#	targetPaceMinutesPerKm = 0		don't edit
 #
 # 	==> Don't forget to set the result format to 0 decimal.
 #
 # SUGGESTED WATCH SCREEN CONFIGURATION :
 #	- pace
-#	- Virtual Partner
+#	- this app
 #	- distance
-#
 ########################################## ##########################################################
 */
-
 
 /* While in sport mode do this once per second */
 
