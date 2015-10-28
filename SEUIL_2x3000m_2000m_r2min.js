@@ -43,7 +43,7 @@
 #	paceAlertTooSlow = 0				don't edit
 #
 #	paceMarginPercent = 8				can be edited. Means "OK if running within +/-8% of target pace".
-#										With margin = 8% and target pace = 4:15min/km, fastest = 3:5, slowest = 4:38
+#										With margin = 8% and target pace = 4:15min/km, fastest = 3:57, slowest = 4:38
 #
 #	step = 0							don't edit
 #	myDurationSeconds = 0				don't edit
