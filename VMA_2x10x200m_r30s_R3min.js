@@ -1,6 +1,6 @@
 /*
 ######################################### VMA 2x10x200m r30s R3min ##################################
-# version : 20150809
+# version : 20160202
 #
 # DESCRIPTION :
 # 	Training :
@@ -14,17 +14,24 @@
 # 			- duration :	free
 # 			- distance :	200m
 # 			- HR :			free
-# 			- pace :		VMA 105
+# 			- pace :		VMA 100
 # 			- short rest : 	30s
 # 			- long rest : 	3min
 #
-# 	WARM UP :
-# 		Upon starting exercice, the app is in "Warmup" mode, until the 'LAP' button is pressed for the 1st fast run.
-# 		After the 'warmUpMinimumDurationMinutes' is over, the watch displays 'H 0 T'
+#	WARM UP :
+#		Upon starting exercice, the app is in "warm up" mode for at least 'warmUpMinimumDurationMinutes'
+#		minutes and until the 'LAP' button is pressed for the 1st fast run.
+#		During these 'warmUpMinimumDurationMinutes' minutes, the watch displays the number
+#		of remaining seconds : "W n S".
+# 		When the warm up is over, the watch displays 'H 0 T'.
 #
 # 	RUNS :
 # 		The watch displays "RUN 1" during the 1st fast run, "RUN 2" during the 2nd fast run, and so on.
 #
+#	PACE CONTROL :
+#		If running too fast (target pace - margin%), the display will be "Run n --".
+#		If running too slow, the display will be "Run n ++".
+
 # 	RESTS :
 # 		During rests, the watch displays the number of remaining seconds : "RST n S".
 #
@@ -32,10 +39,18 @@
 # 		After the last run, the watch displays "CALM".
 #
 # VARIABLES :
-# 	warmUpMinimumDurationMinutes = 15	can be edited
+# 	warmUpMinimumDurationMinutes = 20	can be edited
 # 	runLengthMeters = 200				can be edited
 # 	restBetweenRepsSeconds = 30			can be edited
-# 	restBetweenSeriesSeconds = 180		can be edited
+# 	restBetweenSeriesMinutes = 3		can be edited
+#
+#
+#	==> this declares the target run pace as 4:00 min/km
+#	targetPacePerKmMinutes = 4			can be edited
+#	targetPacePerKmSeconds = 0			can be edited
+#	paceMarginPercent = 8				can be edited. Means "OK if running within +/-8% of target pace".
+#										With margin = 8% and target pace = 4:00min/km, fastest = 3:40, slowest = 4:19
+#
 #
 # 	step = 0						don't edit
 # 	myDurationSeconds = 0			don't edit
@@ -51,7 +66,7 @@
 #
 # SUGGESTED WATCH SCREEN CONFIGURATION :
 #	- pace
-#	- VMA 2x10x30-30 R3min
+#	- this app
 #	- distance
 ########################################## ##########################################################
 */
@@ -81,6 +96,11 @@ if (step < 1) {
 			Suunto.alarmBeep();
 			step = 1;
 			myDistanceKm = SUUNTO_DISTANCE;
+
+			/* initialize values for pace monitoring */
+			targetPace = targetPacePerKmMinutes + (targetPacePerKmSeconds / 60);
+			paceAlertTooFast = targetPace * (100 - paceMarginPercent) / 100;	/* these are minutes/km, so the lower the value, the faster you run */
+			paceAlertTooSlow = targetPace * (100 + paceMarginPercent) / 100;	/* ...and vice-versa ;-) */
 			}
 		}
 	else {
@@ -112,6 +132,11 @@ else if (step==1 || step==3 || step==5 || step==7 || step==9 || step==11 || step
 		/* NOT YET */
 		prefix = "RUN";
 		myResultVar = runId;
+
+		/* PACE MONITORING */
+		postfix = "";
+		if (SUUNTO_PACE > paceAlertTooSlow) { postfix = "++"; }
+		if (SUUNTO_PACE < paceAlertTooFast) { postfix = "--"; }
 		}
 	}
 
@@ -123,7 +148,7 @@ else if (step==2 || step==4 || step==6 || step==8 || step==10 || step==12 || ste
 
 	restDurationSeconds = restBetweenRepsSeconds;
 	if (step == 20) {
-		restDurationSeconds = restBetweenSeriesSeconds;
+		restDurationSeconds = restBetweenSeriesMinutes * 60;
 		}
 
 	endOfStepSeconds = myDurationSeconds + restDurationSeconds;
