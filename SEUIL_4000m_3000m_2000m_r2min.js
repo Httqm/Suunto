@@ -15,13 +15,13 @@
 #		After the 'warmUpMinimumDurationMinutes' is over, the watch displays 'H 0 T'
 #
 #	RUNS :
-#		The watch displays "1 RUN" during the 1st fast run, "2 RUN" during the 2nd fast run, and so on.
+#		The watch displays the remaining distance(in meters) during each run : "xxxx m"
 #
 #	PACE CONTROL :
 #		The built-in pace monitor will warn by displaying if the running pace (compared to target pace +/- margin%) is :
-#			- too fast		: "RUN n --"
-#			- within specs	: "RUN n"
-#			- too slow 		: "RUN n ++"
+#			- too fast		: "xxxx m-"
+#			- within specs	: "xxxx m"
+#			- too slow 		: "xxxx m+"
 #
 #	RESTS :
 #		During rests, the watch displays the number of remaining seconds : " RST n s".
@@ -46,14 +46,14 @@
 #	paceMarginPercent = 8				can be edited. Means "OK if running within +/-8% of target pace".
 #										With margin = 8% and target pace = 4:30min/km, fastest = 4:08, slowest = 4:51
 #
+#	myResultVar = 0						don't edit
 #	step = 0							don't edit
 #	myDurationSeconds = 0				don't edit
 #	myDistanceKm = 0					don't edit
-#	secondsLeft = 0						don't edit
-#	myResultVar = 0						don't edit
-#	runId = 1							don't edit
 #	endOfStepSeconds = 0				don't edit
 #	endOfStepKm = 0						don't edit
+#	secondsLeft = 0						don't edit
+#	metersLeft = 0						don't edit
 #
 #	==> Don't forget to set the result format to 0 decimal.
 #
@@ -117,18 +117,18 @@ else if (step == 1) {
 		/* YES : RUN IS OVER */
 		Suunto.alarmBeep();
 		step = step + 1;
-		runId = runId + 1;
 		myDurationSeconds = SUUNTO_DURATION;
 		}
 	else {
 		/* NOT YET */
-		prefix = "RUN";
-		myResultVar = runId;
+		metersLeft = (endOfStepKm - SUUNTO_DISTANCE) * 1000;
+		prefix = "";
+		myResultVar = metersLeft;
+		postfix = "m";
 
 		/* PACE MONITORING */
-		postfix = "";
-		if (SUUNTO_PACE > paceAlertTooSlow) { postfix = "++"; }
-		if (SUUNTO_PACE < paceAlertTooFast) { postfix = "--"; }
+		if (SUUNTO_PACE > paceAlertTooSlow) { postfix = "m+"; }
+		if (SUUNTO_PACE < paceAlertTooFast) { postfix = "m-"; }
 		}
 	}
 
@@ -145,18 +145,18 @@ else if (step == 3) {
 		/* YES : RUN IS OVER */
 		Suunto.alarmBeep();
 		step = step + 1;
-		runId = runId + 1;
 		myDurationSeconds = SUUNTO_DURATION;
 		}
 	else {
 		/* NOT YET */
-		prefix = "RUN";
-		myResultVar = runId;
+		metersLeft = (endOfStepKm - SUUNTO_DISTANCE) * 1000;
+		prefix = "";
+		myResultVar = metersLeft;
+		postfix = "m";
 
 		/* PACE MONITORING */
-		postfix = "";
-		if (SUUNTO_PACE > paceAlertTooSlow) { postfix = "++"; }
-		if (SUUNTO_PACE < paceAlertTooFast) { postfix = "--"; }
+		if (SUUNTO_PACE > paceAlertTooSlow) { postfix = "m+"; }
+		if (SUUNTO_PACE < paceAlertTooFast) { postfix = "m-"; }
 		}
 	}
 
@@ -173,18 +173,18 @@ else if (step == 5) {
 		/* YES : RUN IS OVER */
 		Suunto.alarmBeep();
 		step = step + 1;
-		runId = runId + 1;
 		myDurationSeconds = SUUNTO_DURATION;
 		}
 	else {
 		/* NOT YET */
-		prefix = "RUN";
-		myResultVar = runId;
+		metersLeft = (endOfStepKm - SUUNTO_DISTANCE) * 1000;
+		prefix = "";
+		myResultVar = metersLeft;
+		postfix = "m";
 
 		/* PACE MONITORING */
-		postfix = "";
-		if (SUUNTO_PACE > paceAlertTooSlow) { postfix = "++"; }
-		if (SUUNTO_PACE < paceAlertTooFast) { postfix = "--"; }
+		if (SUUNTO_PACE > paceAlertTooSlow) { postfix = "m+"; }
+		if (SUUNTO_PACE < paceAlertTooFast) { postfix = "m-"; }
 		}
 	}
 
@@ -218,6 +218,8 @@ else if (step == 2 || step == 4) {
  *************/
 else if (step > 5) {
 	prefix = "CALM";
+	myResultVar = 0;
+	postfix = "";
 	}
 
 /* THE END */
