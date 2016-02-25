@@ -1,6 +1,6 @@
 /*
 ######################################### SEUIL 4000m + 3000m + 2000m r2min #######################################
-# version : 20160217
+# version : 20160225
 #
 # DESCRIPTION :
 #	long training with 3 fast runs in which :
@@ -15,7 +15,7 @@
 #		After the 'warmUpMinimumDurationMinutes' is over, the watch displays 'H 0 T'
 #
 #	RUNS :
-#		The watch displays the remaining distance(in meters) during each run : "xxxx m"
+#		The watch displays the remaining distance (in meters) during each run : "xxxx m"
 #
 #	PACE CONTROL :
 #		The built-in pace monitor will warn by displaying if the running pace (compared to target pace +/- margin%) is :
