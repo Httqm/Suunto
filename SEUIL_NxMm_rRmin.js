@@ -50,7 +50,6 @@
 # 	myDistanceKm = 0					don't edit
 # 	secondsLeft = 0						don't edit
 # 	myResultVar = 0						don't edit
-# 	runId = 0							don't edit
 # 	endOfStepSeconds = 0				don't edit
 # 	endOfStepKm = 0						don't edit
 #	metersLeft = 0						don't edit
@@ -88,7 +87,6 @@ if (step < 1) {
 		if (SUUNTO_LAP_NUMBER > 1) {
 			Suunto.alarmBeep();
 
-			runId = 1;
 			step = 1;
 			stepOfLastRun = (2 * reps) - 1;
 
@@ -122,7 +120,6 @@ else if (step>=1 && step<=stepOfLastRun && mod(step,2)==1) {
 		/* YES : RUN IS OVER */
 		Suunto.alarmBeep();
 		step = step + 1;
-		runId = runId + 1;
 		myDurationSeconds = SUUNTO_DURATION;
 		}
 	else {
