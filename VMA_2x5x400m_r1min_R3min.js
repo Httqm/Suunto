@@ -1,6 +1,6 @@
 /*
 ######################################### VMA 2x5x400m r1min R3min ##################################
-# version : 20150809
+# version : 20160922
 #
 # DESCRIPTION :
 # 	Training :
@@ -36,7 +36,7 @@
 # 		After the last run, the watch displays "CALM".
 #
 # VARIABLES :
-# 	warmUpMinimumDurationMinutes = 15	can be edited
+# 	warmUpMinimumDurationMinutes = 20	can be edited
 # 	runLengthMeters = 400				can be edited
 # 	restBetweenRepsSeconds = 60			can be edited
 # 	restBetweenSeriesSeconds = 180		can be edited
