@@ -1,57 +1,57 @@
 /*
 ######################################### SL 1h20 2x10min80-85FCM r2min #############################
-# version : 20150809
+# version : 20160904
 #
 # DESCRIPTION :
-# 	Training :
-# 		- duration : 	1h20
-# 		- distance : 	free
-# 		- HR :			free (<75% max. HR)
-# 		- pace :		free
-# 		- fast runs :
-# 			- reps :		2
-# 			- duration :	10min
-# 			- distance :	free
-# 			- HR :			80-85% of max. HR
-# 			- pace :		free
-# 			- rest : 		2min
+#	Training :
+#		- duration : 	1h20
+#		- distance : 	free
+#		- HR :			free (<75% max. HR)
+#		- pace :		free
+#		- fast runs :
+#			- reps :		2
+#			- duration :	10min
+#			- distance :	free
+#			- HR :			80-85% of max. HR
+#			- pace :		free
+#			- rest : 		2min
 #
-# 	WARM UP :
-# 		Upon starting exercice, the app is in "Warmup" mode, until the 'LAP' button is pressed for the 1st fast run.
-# 		After the 'warmUpMinimumDurationMinutes' is over, the watch displays 'H 0 T'
+#	WARM UP :
+#		Upon starting exercice, the app is in "Warmup" mode, until the 'LAP' button is pressed for the 1st fast run.
+#		After the 'warmUpMinimumDurationMinutes' is over, the watch displays 'H 0 T'
 #
-# 	RUNS :
-# 		The watch displays "1 RUN" during the 1st fast run, "2 RUN" during the 2nd fast run, and so on.
+#	RUNS :
+#		The watch displays "1 RUN" during the 1st fast run, "2 RUN" during the 2nd fast run, and so on.
 #
-# 	RESTS :
-# 		During rests, the watch displays the number of remaining seconds : " R n s".
+#	RESTS :
+#		During rests, the watch displays the number of remaining seconds : " R n s".
 #
-# 	CALM DOWN :
-# 		After the last run, the watch displays "CALM".
+#	CALM DOWN :
+#		After the last run, the watch displays "CALM".
 #
 # VARIABLES :
-# 	totalTrainingDurationMinutes = 80	can be edited
-# 	fastRunDurationMinutes = 10			can be edited
-# 	restBetweenRunsSeconds = 120		can be edited
-# 	warmUpMinimumDurationMinutes = 15	can be edited
-# 	calmDownDurationMinutes = 10
+#	totalTrainingDurationMinutes = 80	can be edited
+#	fastRunDurationMinutes = 10			can be edited
+#	restBetweenRunsSeconds = 120		can be edited
+#	warmUpMinimumDurationMinutes = 15	can be edited
+#	calmDownDurationMinutes = 10
 #
-# 	heartRatePercentLow = 80			can be edited
-# 	heartRatePercentHigh = 85			can be edited
+#	heartRatePercentLow = 80			can be edited
+#	heartRatePercentHigh = 85			can be edited
 #
 #
-# 	step = 0						don't edit
-# 	myDurationSeconds = 0			don't edit
-# 	timeLeft = 0					don't edit
-# 	endOfStepSeconds = 0			don't edit
-# 	myResultVar = 0					don't edit
+#	step = 0						don't edit
+#	myDurationSeconds = 0			don't edit
+#	timeLeft = 0					don't edit
+#	endOfStepSeconds = 0			don't edit
+#	myResultVar = 0					don't edit
 #
-# 	==> Don't forget to set the result format to 0 decimal.
+#	==> Don't forget to set the result format to 0 decimal.
 #
 # SUGGESTED WATCH SCREEN CONFIGURATION :
-# 	- HR
-# 	- APP
-# 	- TIME
+#	- HR
+#	- APP
+#	- TIME
 ########################################## ##########################################################
 */
 
