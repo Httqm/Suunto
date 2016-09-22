@@ -14,14 +14,14 @@
 # 		Upon starting exercice, the app is in "Warmup" mode, until the 'LAP' button is pressed for the 1st fast run.
 # 		After the 'warmUpMinimumDurationMinutes' is over, the watch displays 'H 0 T'
 #
-# 	RUNS :
-# 		The watch displays "1 RUN" during the 1st fast run, "2 RUN" during the 2nd fast run, and so on.
+#	RUNS :
+#		The watch displays the remaining distance (in meters) during each run : "xxxx m"
 #
-# 	PACE CONTROL :
+#	PACE CONTROL :
 #		The built-in pace monitor will warn by displaying if the running pace (compared to target pace +/- margin%) is :
-#			- too fast		: "RUN n --"
-#			- within specs	: "RUN n"
-#			- too slow 		: "RUN n ++"
+#			- too fast		: "xxxx m-"
+#			- within specs	: "xxxx m"
+#			- too slow 		: "xxxx m+"
 #
 # 	RESTS :
 # 		During rests, the watch displays the number of remaining seconds : " RST n s".
@@ -53,6 +53,8 @@
 # 	runId = 0							don't edit
 # 	endOfStepSeconds = 0				don't edit
 # 	endOfStepKm = 0						don't edit
+#	metersLeft = 0						don't edit
+#	stepOfLastRun = 0					don't edit
 #
 # 	==> Don't forget to set the result format to 0 decimal.
 #
@@ -125,13 +127,14 @@ else if (step>=1 && step<=stepOfLastRun && mod(step,2)==1) {
 		}
 	else {
 		/* NOT YET */
-		prefix = "RUN";
-		myResultVar = runId;
+		metersLeft = (endOfStepKm - SUUNTO_DISTANCE) * 1000;
+		prefix = "";
+		myResultVar = metersLeft;
+		postfix = "m";
 
 		/* PACE MONITORING */
-		postfix = "";
-		if (SUUNTO_PACE > paceAlertTooSlow) { postfix = "++"; }
-		if (SUUNTO_PACE < paceAlertTooFast) { postfix = "--"; }
+		if (SUUNTO_PACE > paceAlertTooSlow) { postfix = "m+"; }
+		if (SUUNTO_PACE < paceAlertTooFast) { postfix = "m-"; }
 		}
 	}
 
