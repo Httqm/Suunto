@@ -1,6 +1,6 @@
 /*
 ######################################### VMA 2xNx30-30 R3min #######################################
-# version : 20160614
+# version : 20160922
 #
 # DESCRIPTION :
 #	Training :
@@ -90,15 +90,17 @@ if (step < 1) {
 		/* Press the "LAP" watch button to go for the first run */
 		if (SUUNTO_LAP_NUMBER > 1) {
 			Suunto.alarmBeep();
-			step = 1;
-			myDurationSeconds = SUUNTO_DURATION;
 
 			runId = 1;
+			step = 1;
 			stepOfLastRun = (4 * reps) - 1;
+
 			/* initialize values for pace monitoring */
 			targetPace = targetPacePerKmMinutes + (targetPacePerKmSeconds / 60);
 			paceAlertTooFast = targetPace * (100 - paceMarginPercent) / 100;	/* these are minutes/km, so the lower the value, the faster you run */
 			paceAlertTooSlow = targetPace * (100 + paceMarginPercent) / 100;	/* ...and vice-versa ;-) */
+
+			myDurationSeconds = SUUNTO_DURATION;		/* do this as late as possible for better accuracy */
 			}
 		}
 	else {
@@ -178,7 +180,7 @@ else if (step>=2 && step<=(stepOfLastRun - 1) && mod(step,2)==0) {
  * CALM DOWN *
  *************/
 /*else if (step > 39) {*/
-else if (step >= (4 * reps)) {
+else if (step > stepOfLastRun) {
 	prefix = "CALM";
 	}
 

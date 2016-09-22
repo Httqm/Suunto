@@ -122,10 +122,6 @@ else if (step>=1 && step<=stepOfLastRun && mod(step,2)==1) {
 		step = step + 1;
 		runId = runId + 1;
 		myDurationSeconds = SUUNTO_DURATION;
-		/*
-		SUUNTO_LAP_NUMBER = SUUNTO_LAP_NUMBER + 1;
-		This would be great but is not supported so far :-(
-		*/
 		}
 	else {
 		/* NOT YET */
