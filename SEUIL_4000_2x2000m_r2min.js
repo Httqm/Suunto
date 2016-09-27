@@ -1,6 +1,6 @@
 /*
 ######################################### SEUIL 4000m + 2x2000m r2min ###############################
-# version : 20151028
+# version : 20160927
 #
 # DESCRIPTION :
 #	long training with 3 fast runs in which :
@@ -15,13 +15,13 @@
 #		After the 'warmUpMinimumDurationMinutes' is over, the watch displays 'H 0 T'
 #
 #	RUNS :
-#		The watch displays "1 RUN" during the 1st fast run, "2 RUN" during the 2nd fast run, and so on.
+#		The watch displays the remaining distance (in meters) during each run : "xxxx m"
 #
 #	PACE CONTROL :
 #		The built-in pace monitor will warn by displaying if the running pace (compared to target pace +/- margin%) is :
-#			- too fast		: "RUN n --"
-#			- within specs	: "RUN n"
-#			- too slow 		: "RUN n ++"
+#			- too fast		: "xxxx m-"
+#			- within specs	: "xxxx m"
+#			- too slow 		: "xxxx m+"
 #
 #	RESTS :
 #		During rests, the watch displays the number of remaining seconds : " RST n s".
@@ -30,14 +30,14 @@
 #		After the last run, the watch displays "CALM".
 #
 # VARIABLES :
-#	warmUpMinimumDurationMinutes = 15	can be edited
+#	warmUpMinimumDurationMinutes = 20	can be edited
 #	longRunLengthMeters = 4000			can be edited
 #	shortRunLengthMeters = 2000			can be edited
 #	restBetweenRunsSeconds = 120		can be edited
 #
-#	==> this declares the target run pace as 4min15s/km
+#	==> this declares the target run pace as 4min20s/km
 #	targetPacePerKmMinutes = 4			can be edited
-#	targetPacePerKmSeconds = 15			can be edited
+#	targetPacePerKmSeconds = 20			can be edited
 #	targetPace = 0						don't edit
 #	paceAlertTooFast = 0				don't edit
 #	paceAlertTooSlow = 0				don't edit
@@ -50,9 +50,9 @@
 #	myDistanceKm = 0					don't edit
 #	secondsLeft = 0						don't edit
 #	myResultVar = 0						don't edit
-#	runId = 1							don't edit
 #	endOfStepSeconds = 0				don't edit
 #	endOfStepKm = 0						don't edit
+#	metersLeft = 0						don't edit
 #
 #	==> Don't forget to set the result format to 0 decimal.
 #
@@ -92,7 +92,7 @@ if (step < 1) {
 			paceAlertTooFast = targetPace * (100 - paceMarginPercent) / 100;	/* these are minutes/km, so the lower the value, the faster you run */
 			paceAlertTooSlow = targetPace * (100 + paceMarginPercent) / 100;	/* ...and vice-versa ;-) */
 
-			myDistanceKm = SUUNTO_DISTANCE;
+			myDistanceKm = SUUNTO_DISTANCE;	/* do this as late as possible for better accuracy */
 			}
 		}
 	else {
@@ -117,18 +117,18 @@ else if (step == 1) {
 		/* YES : RUN IS OVER */
 		Suunto.alarmBeep();
 		step = step + 1;
-		runId = runId + 1;
 		myDurationSeconds = SUUNTO_DURATION;
 		}
 	else {
 		/* NOT YET */
-		prefix = "RUN";
-		myResultVar = runId;
+		metersLeft = (endOfStepKm - SUUNTO_DISTANCE) * 1000;
+		prefix = "";
+		myResultVar = metersLeft;
+		postfix = "m";
 
 		/* PACE MONITORING */
-		postfix = "";
-		if (SUUNTO_PACE > paceAlertTooSlow) { postfix = "++"; }
-		if (SUUNTO_PACE < paceAlertTooFast) { postfix = "--"; }
+		if (SUUNTO_PACE > paceAlertTooSlow) { postfix = "m+"; }
+		if (SUUNTO_PACE < paceAlertTooFast) { postfix = "m-"; }
 		}
 	}
 
@@ -145,18 +145,18 @@ else if (step == 3 || step == 5) {
 		/* YES : RUN IS OVER */
 		Suunto.alarmBeep();
 		step = step + 1;
-		runId = runId + 1;
 		myDurationSeconds = SUUNTO_DURATION;
 		}
 	else {
 		/* NOT YET */
-		prefix = "RUN";
-		myResultVar = runId;
+		metersLeft = (endOfStepKm - SUUNTO_DISTANCE) * 1000;
+		prefix = "";
+		myResultVar = metersLeft;
+		postfix = "m";
 
 		/* PACE MONITORING */
-		postfix = "";
-		if (SUUNTO_PACE > paceAlertTooSlow) { postfix = "++"; }
-		if (SUUNTO_PACE < paceAlertTooFast) { postfix = "--"; }
+		if (SUUNTO_PACE > paceAlertTooSlow) { postfix = "m+"; }
+		if (SUUNTO_PACE < paceAlertTooFast) { postfix = "m-"; }
 		}
 	}
 
