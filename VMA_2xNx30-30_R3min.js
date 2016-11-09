@@ -1,6 +1,6 @@
 /*
 ######################################### VMA 2xNx30-30 R3min #######################################
-# version : 20160922
+# version : 20161109
 #
 # DESCRIPTION :
 #	Training :
@@ -14,7 +14,7 @@
 #			- duration :	30s
 #			- distance :	free
 #			- HR :			free
-#			- pace :		VMA 100 (3:35 min/km)
+#			- pace :		VMA 100 (3:40 min/km)
 #			- short rest :	30s
 #			- long rest :	3min
 #
@@ -29,8 +29,8 @@
 #		The watch displays "RUN 1" during the 1st fast run, "RUN 2" during the 2nd fast run, and so on.
 #
 #	PACE CONTROL :
-#		If running too fast (target pace - margin%), the display will be "Run n --".
-#		If running too slow, the display will be "Run n ++".
+#		If running too fast (target pace - margin%), the display will be "RUN n --".
+#		If running too slow, the display will be "RUN n ++".
 
 #	RESTS :
 #		During rests, the watch displays the number of remaining seconds : "RST n S".
@@ -45,11 +45,11 @@
 #	restBetweenRepsSeconds = 30			can be edited
 #	restBetweenSeriesMinutes = 3		can be edited
 #
-#	==> this declares the target run pace as 3:35 min/km
+#	==> this declares the target run pace as 3:40 min/km
 #	targetPacePerKmMinutes = 3			can be edited
-#	targetPacePerKmSeconds = 35			can be edited
+#	targetPacePerKmSeconds = 40			can be edited
 #	paceMarginPercent = 8				can be edited. Means "OK if running within +/-8% of target pace".
-#										With margin = 8% and target pace = 3:35min/km, fastest = 3:18, slowest = 3:53
+#										With margin = 8% and target pace = 3:40min/km, fastest = 3:24, slowest = 3:59
 #
 #	endOfStepSeconds = 0				don't edit
 #	myDurationSeconds = 0				don't edit
@@ -116,9 +116,6 @@ if (step < 1) {
 /*******
  * RUN *
  *******/
-/*
-else if (step==1 || step==3 || step==5 || step==7 || step==9 || step==11 || step==13 || step==15 || step==17 || step==19 || step==21 || step==23 || step==25 || step==27 || step==29 || step==31 || step==33 || step==35 || step==37 || step==39) {
-*/
 else if (step>=1 && step<=stepOfLastRun && mod(step,2)==1) {
 
 	endOfStepSeconds = myDurationSeconds + runDurationSeconds;
@@ -147,9 +144,6 @@ else if (step>=1 && step<=stepOfLastRun && mod(step,2)==1) {
 /**********************
  * SHORT + LONG RESTS *
  *********************/
-/*
-else if (step==2 || step==4 || step==6 || step==8 || step==10 || step==12 || step==14 || step==16 || step==18 || step==20 || step==22 || step==24 || step==26 || step==28 || step==30 || step==32 || step==34 || step==36 || step==38) {
-*/
 else if (step>=2 && step<=(stepOfLastRun - 1) && mod(step,2)==0) {
 
 	restDurationSeconds = restBetweenRepsSeconds;
