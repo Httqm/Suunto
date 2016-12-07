@@ -1,6 +1,6 @@
 /*
-######################################### VMA 2x10x200m r30s R3min ##################################
-# version : 20160202
+######################################### VMA 2xNx200m r30s R3min ###################################
+# version : 20161207
 #
 # DESCRIPTION :
 # 	Training :
@@ -14,7 +14,7 @@
 # 			- duration :	free
 # 			- distance :	200m
 # 			- HR :			free
-# 			- pace :		VMA 100
+# 			- pace :		VMA 105
 # 			- short rest : 	30s
 # 			- long rest : 	3min
 #
@@ -40,27 +40,29 @@
 #
 # VARIABLES :
 # 	warmUpMinimumDurationMinutes = 20	can be edited
+#	reps = 10							can be edited, 2x reps x runLengthMeters
 # 	runLengthMeters = 200				can be edited
 # 	restBetweenRepsSeconds = 30			can be edited
 # 	restBetweenSeriesMinutes = 3		can be edited
 #
 #
-#	==> this declares the target run pace as 4:00 min/km
-#	targetPacePerKmMinutes = 4			can be edited
-#	targetPacePerKmSeconds = 0			can be edited
+#	==> this declares the target run pace as 3:30 min/km
+#	targetPacePerKmMinutes = 3			can be edited
+#	targetPacePerKmSeconds = 30			can be edited
 #	paceMarginPercent = 8				can be edited. Means "OK if running within +/-8% of target pace".
-#										With margin = 8% and target pace = 4:00min/km, fastest = 3:40, slowest = 4:19
+#										With margin = 8% and target pace = 3:30min/km, fastest = 3:13, slowest = 3:46
 #
 #
-# 	step = 0						don't edit
-# 	myDurationSeconds = 0			don't edit
-# 	myDistanceKm = 0				don't edit
-# 	timeLeft = 0					don't edit
-# 	endOfStepSeconds = 0			don't edit
 # 	endOfStepKm = 0					don't edit
+# 	endOfStepSeconds = 0			don't edit
+# 	myDistanceKm = 0				don't edit
+# 	myDurationSeconds = 0			don't edit
 # 	myResultVar = 0					don't edit
-# 	runId = 1						don't edit
 # 	restDurationSeconds = 0			don't edit
+# 	runId = 0						don't edit
+# 	step = 0						don't edit
+#	stepOfLastRun = 0				don't edit
+# 	secondsLeft = 0					don't edit
 #
 # 	==> Don't forget to set the result format to 0 decimal.
 #
@@ -71,12 +73,10 @@
 ########################################## ##########################################################
 */
 
-
 /* While in sport mode do this once per second */
 prefix = "";
 RESULT = myResultVar;
 postfix = "";
-
 
 /***********
  * WARM UP *
@@ -94,20 +94,25 @@ if (step < 1) {
 		/* Press the "LAP" watch button to go for the first run */
 		if (SUUNTO_LAP_NUMBER > 1) {
 			Suunto.alarmBeep();
+
+			runId = 1;
 			step = 1;
-			myDistanceKm = SUUNTO_DISTANCE;
+			stepOfLastRun = (4 * reps) - 1;
+
 
 			/* initialize values for pace monitoring */
 			targetPace = targetPacePerKmMinutes + (targetPacePerKmSeconds / 60);
 			paceAlertTooFast = targetPace * (100 - paceMarginPercent) / 100;	/* these are minutes/km, so the lower the value, the faster you run */
 			paceAlertTooSlow = targetPace * (100 + paceMarginPercent) / 100;	/* ...and vice-versa ;-) */
+
+			myDistanceKm = SUUNTO_DISTANCE;		/* do this as late as possible for better accuracy */
 			}
 		}
 	else {
 		/* NOT YET */
-		timeLeft = endOfStepSeconds - SUUNTO_DURATION;
+		secondsLeft = endOfStepSeconds - SUUNTO_DURATION;
 		prefix = "WUP";	/* 'Warm up' */
-		myResultVar = timeLeft;
+		myResultVar = secondsLeft;
 		postfix = "S";	/* 'seconds' */
 		}
 	}
@@ -116,7 +121,7 @@ if (step < 1) {
 /*******
  * RUN *
  *******/
-else if (step==1 || step==3 || step==5 || step==7 || step==9 || step==11 || step==13 || step==15 || step==17 || step==19 || step==21 || step==23 || step==25 || step==27 || step==29 || step==31 || step==33 || step==35 || step==37 || step==39) {
+else if (step>=1 && step<=stepOfLastRun && mod(step,2)==1) {
 
 	endOfStepKm = myDistanceKm + runLengthMeters / 1000;
 
@@ -144,7 +149,7 @@ else if (step==1 || step==3 || step==5 || step==7 || step==9 || step==11 || step
 /**********************
  * SHORT + LONG RESTS *
  *********************/
-else if (step==2 || step==4 || step==6 || step==8 || step==10 || step==12 || step==14 || step==16 || step==18 || step==20 || step==22 || step==24 || step==26 || step==28 || step==30 || step==32 || step==34 || step==36 || step==38) {
+else if (step>=2 && step<=(stepOfLastRun - 1) && mod(step,2)==0) {
 
 	restDurationSeconds = restBetweenRepsSeconds;
 	if (step == 20) {
@@ -162,9 +167,9 @@ else if (step==2 || step==4 || step==6 || step==8 || step==10 || step==12 || ste
 		}
 	else {
 		/* NOT YET */
-		timeLeft = endOfStepSeconds - SUUNTO_DURATION;
+		secondsLeft = endOfStepSeconds - SUUNTO_DURATION;
 		prefix = "RST";	/* 'Rest' */
-		myResultVar = timeLeft;
+		myResultVar = secondsLeft;
 		postfix = "S";	/* 'seconds' */
 		}
 	}
@@ -173,7 +178,7 @@ else if (step==2 || step==4 || step==6 || step==8 || step==10 || step==12 || ste
 /*************
  * CALM DOWN *
  *************/
-else if (step > 39) {
+else if (step > stepOfLastRun) {
 	prefix = "CALM";
 	}
 
