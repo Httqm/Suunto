@@ -1,6 +1,6 @@
 /*
 ######################################### VMA 2xNx30-30 R3min #######################################
-# version : 20161109
+# version : 20161207
 #
 # DESCRIPTION :
 #	Training :
@@ -58,7 +58,7 @@
 #	runId = 0							don't edit
 #	step = 0							don't edit
 #	stepOfLastRun = 0					don't edit
-#	timeLeft = 0						don't edit
+#	secondsLeft = 0						don't edit
 #
 #	==> Don't forget to set the result format to 0 decimal.
 #
@@ -105,9 +105,9 @@ if (step < 1) {
 		}
 	else {
 		/* NOT YET */
-		timeLeft = endOfStepSeconds - SUUNTO_DURATION;
+		secondsLeft = endOfStepSeconds - SUUNTO_DURATION;
 		prefix = "WUP";	/* 'Warm up' */
-		myResultVar = timeLeft;
+		myResultVar = secondsLeft;
 		postfix = "S";	/* 'seconds' */
 		}
 	}
@@ -162,9 +162,9 @@ else if (step>=2 && step<=(stepOfLastRun - 1) && mod(step,2)==0) {
 		}
 	else {
 		/* NOT YET */
-		timeLeft = endOfStepSeconds - SUUNTO_DURATION;
+		secondsLeft = endOfStepSeconds - SUUNTO_DURATION;
 		prefix = "RST";	/* 'Rest' */
-		myResultVar = timeLeft;
+		myResultVar = secondsLeft;
 		postfix = "S";	/* 'seconds' */
 		}
 	}
@@ -173,10 +173,8 @@ else if (step>=2 && step<=(stepOfLastRun - 1) && mod(step,2)==0) {
 /*************
  * CALM DOWN *
  *************/
-/*else if (step > 39) {*/
 else if (step > stepOfLastRun) {
 	prefix = "CALM";
 	}
-
 
 /* THE END */
