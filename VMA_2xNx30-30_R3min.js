@@ -1,6 +1,6 @@
 /*
 ######################################### VMA 2xNx30-30 R3min #######################################
-# version : 20161207
+# version : 20170124
 #
 # DESCRIPTION :
 #	Training :
@@ -53,12 +53,10 @@
 #
 #	endOfStepSeconds = 0				don't edit
 #	myDurationSeconds = 0				don't edit
-#	myResultVar = 0						don't edit
 #	restDurationSeconds = 0				don't edit
 #	runId = 0							don't edit
 #	step = 0							don't edit
 #	stepOfLastRun = 0					don't edit
-#	secondsLeft = 0						don't edit
 #
 #	==> Don't forget to set the result format to 0 decimal.
 #
@@ -70,9 +68,6 @@
 */
 
 /* While in sport mode do this once per second */
-prefix = "";
-RESULT = myResultVar;
-postfix = "";
 
 /***********
  * WARM UP *
@@ -84,7 +79,7 @@ if (step < 1) {
 	if (SUUNTO_DURATION > endOfStepSeconds) {
 		/* YES */
 		prefix = "H";
-		myResultVar = 0;
+		RESULT = 0;
 		postfix = "T";	/* ==> 'HOT' ;-) */
 
 		/* Press the "LAP" watch button to go for the first run */
@@ -105,9 +100,8 @@ if (step < 1) {
 		}
 	else {
 		/* NOT YET */
-		secondsLeft = endOfStepSeconds - SUUNTO_DURATION;
 		prefix = "WUP";	/* 'Warm up' */
-		myResultVar = secondsLeft;
+		RESULT = endOfStepSeconds - SUUNTO_DURATION;	/* nb of seconds left */
 		postfix = "S";	/* 'seconds' */
 		}
 	}
@@ -131,7 +125,7 @@ else if (step>=1 && step<=stepOfLastRun && mod(step,2)==1) {
 	else {
 		/* NOT YET */
 		prefix = "RUN";
-		myResultVar = runId;
+		RESULT = runId;
 
 		/* PACE MONITORING */
 		postfix = "";
@@ -162,9 +156,8 @@ else if (step>=2 && step<=(stepOfLastRun - 1) && mod(step,2)==0) {
 		}
 	else {
 		/* NOT YET */
-		secondsLeft = endOfStepSeconds - SUUNTO_DURATION;
 		prefix = "RST";	/* 'Rest' */
-		myResultVar = secondsLeft;
+		RESULT = endOfStepSeconds - SUUNTO_DURATION;	/* nb of seconds left */
 		postfix = "S";	/* 'seconds' */
 		}
 	}
@@ -175,6 +168,7 @@ else if (step>=2 && step<=(stepOfLastRun - 1) && mod(step,2)==0) {
  *************/
 else if (step > stepOfLastRun) {
 	prefix = "CALM";
+	postfix = "";
 	}
 
 /* THE END */
