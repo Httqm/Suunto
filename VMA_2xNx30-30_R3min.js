@@ -28,10 +28,6 @@
 #	RUNS :
 #		The watch displays "RUN 1" during the 1st fast run, "RUN 2" during the 2nd fast run, and so on.
 #
-#	PACE CONTROL :
-#		If running too fast (target pace - margin%), the display will be "RUN n --".
-#		If running too slow, the display will be "RUN n ++".
-
 #	RESTS :
 #		During rests, the watch displays the number of remaining seconds : "RST n S".
 #
@@ -44,12 +40,6 @@
 #	runDurationSeconds = 30				can be edited
 #	restBetweenRepsSeconds = 30			can be edited
 #	restBetweenSeriesMinutes = 3		can be edited
-#
-#	==> this declares the target run pace as 3:40 min/km
-#	targetPacePerKmMinutes = 3			can be edited
-#	targetPacePerKmSeconds = 40			can be edited
-#	paceMarginPercent = 8				can be edited. Means "OK if running within +/-8% of target pace".
-#										With margin = 8% and target pace = 3:40min/km, fastest = 3:24, slowest = 3:59
 #
 #	endOfStepSeconds = 0				don't edit
 #	myDurationSeconds = 0				don't edit
@@ -65,9 +55,12 @@
 #	- this app
 #	- distance
 ########################################## ##########################################################
-*/
 
-/* While in sport mode do this once per second */
+NB :	pace monitoring has been disabled because it makes the whole program fail when started on
+		an Ambit 3 Peak (with firmware 2.4.1) : upon starting app, it stays stuck on "WUP -- S"
+		(root cause unknown so far).
+		Refer to previous versions (Git is your friend ;-) to see/restore pace monitoring code.
+*/
 
 /***********
  * WARM UP *
@@ -89,13 +82,6 @@ if (step < 1) {
 			runId = 1;
 			step = 1;
 			stepOfLastRun = (4 * reps) - 1;
-
-			/* initialize values for pace monitoring */
-			targetPace = targetPacePerKmMinutes + (targetPacePerKmSeconds / 60);
-			paceAlertTooFast = targetPace * (100 - paceMarginPercent) / 100;	/* these are minutes/km, so the lower the value, the faster you run */
-			paceAlertTooSlow = targetPace * (100 + paceMarginPercent) / 100;	/* ...and vice-versa ;-) */
-
-			myDurationSeconds = SUUNTO_DURATION;		/* do this as late as possible for better accuracy */
 			}
 		}
 	else {
@@ -126,11 +112,7 @@ else if (step>=1 && step<=stepOfLastRun && mod(step,2)==1) {
 		/* NOT YET */
 		prefix = "RUN";
 		RESULT = runId;
-
-		/* PACE MONITORING */
 		postfix = "";
-		if (SUUNTO_PACE > paceAlertTooSlow) { postfix = "++"; }
-		if (SUUNTO_PACE < paceAlertTooFast) { postfix = "--"; }
 		}
 	}
 
