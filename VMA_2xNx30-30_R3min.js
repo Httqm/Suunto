@@ -1,6 +1,6 @@
 /*
 ######################################### VMA 2xNx30-30 R3min #######################################
-# version : 20170124
+# version : 20170125
 #
 # DESCRIPTION :
 #	Training :
@@ -82,6 +82,8 @@ if (step < 1) {
 			runId = 1;
 			step = 1;
 			stepOfLastRun = (4 * reps) - 1;
+
+			myDurationSeconds = SUUNTO_DURATION;	/* do this as late as possible for better accuracy */
 			}
 		}
 	else {
