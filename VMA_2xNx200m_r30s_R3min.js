@@ -1,6 +1,6 @@
 /*
 ######################################### VMA 2xNx200m r30s R3min ###################################
-# version : 20161207
+# version : 20170130
 #
 # DESCRIPTION :
 # 	Training :
@@ -140,8 +140,10 @@ else if (step>=1 && step<=stepOfLastRun && mod(step,2)==1) {
 
 		/* PACE MONITORING */
 		postfix = "";
+/*
 		if (SUUNTO_PACE > paceAlertTooSlow) { postfix = "++"; }
 		if (SUUNTO_PACE < paceAlertTooFast) { postfix = "--"; }
+*/
 		}
 	}
 
