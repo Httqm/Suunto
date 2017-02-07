@@ -1,6 +1,6 @@
 /*
 ######################################### VMA 2xNx200m r30s R3min ###################################
-# version : 20170130
+# version : 20170207
 #
 # DESCRIPTION :
 # 	Training :
@@ -154,7 +154,7 @@ else if (step>=1 && step<=stepOfLastRun && mod(step,2)==1) {
 else if (step>=2 && step<=(stepOfLastRun - 1) && mod(step,2)==0) {
 
 	restDurationSeconds = restBetweenRepsSeconds;
-	if (step == 20) {
+	if (step == (2 * reps)) {
 		restDurationSeconds = restBetweenSeriesMinutes * 60;
 		}
 
