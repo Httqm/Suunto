@@ -1,5 +1,5 @@
 /*
-######################################### VMA 2x5x400m r1min R3min ##################################
+######################################### VMA 2xNx400m r1min R3min ##################################
 # version : 20170207
 #
 # DESCRIPTION :
@@ -10,12 +10,12 @@
 # 		- HR :			free
 # 		- pace :		free
 # 		- fast runs :
-# 			- reps :		2x5
+# 			- reps :		2xN
 # 			- duration :	free
 # 			- distance :	400m
 # 			- HR :			free
-# 			- pace :		VMA 95 (4:13min/km +/- 8%)
-# 			- short rest : 	1min
+# 			- pace :		VMA 95 (3:50min/km +/- 8%)
+# 			- short rest : 	70s
 # 			- long rest : 	3min
 #
 # 	WARM UP :
@@ -27,7 +27,7 @@
 #		The built-in pace monitor will warn by displaying if the running pace is :
 #			- too fast		: "RUN n --"
 #			- within specs	: "RUN n"
-#			- too slow 		: "RUN n ++"
+#			- too slow		: "RUN n ++"
 #
 # 	RESTS :
 # 		During rests, the watch displays the number of remaining seconds : "RST n S".
@@ -36,32 +36,33 @@
 # 		After the last run, the watch displays "CALM".
 #
 # VARIABLES :
-# 	warmUpMinimumDurationMinutes = 20	can be edited
-# 	runLengthMeters = 400				can be edited
-# 	restBetweenRepsSeconds = 60			can be edited
+#	reps = 5							can be edited, 2x reps x runLengthMeters
+# 	restBetweenRepsSeconds = 70			can be edited
 # 	restBetweenSeriesSeconds = 180		can be edited
+# 	runLengthMeters = 400				can be edited
+# 	warmUpMinimumDurationMinutes = 20	can be edited
 #
 #
 #	PACE MONITORING
-# 	==> this declares the target run pace as 4:13 min/km
-# 	targetPacePerKmMinutes = 4		can be edited
-# 	targetPacePerKmSeconds = 13		can be edited
+# 	==> this declares the target run pace as 3:50 min/km
+# 	targetPacePerKmMinutes = 3		can be edited
+# 	targetPacePerKmSeconds = 50		can be edited
 # 	targetPace = 0					don't edit
 # 	paceAlertTooFast = 0			don't edit
 # 	paceAlertTooSlow = 0			don't edit
 #
 # 	paceMarginPercent = 8			can be edited. Means "OK if running within +/-8% of target pace".
-# 									With margin = 8% and target pace = 4:13min/km, fastest = 3:51, slowest = 4:32
+# 									With margin = 8% and target pace = 3:50min/km, fastest = 3:39, slowest = 4:02
 #
-# 	step = 0						don't edit
-# 	myDurationSeconds = 0			don't edit
-# 	myDistanceKm = 0				don't edit
-# 	secondsLeft = 0					don't edit
-# 	endOfStepSeconds = 0			don't edit
 # 	endOfStepKm = 0					don't edit
+# 	endOfStepSeconds = 0			don't edit
+# 	myDistanceKm = 0				don't edit
+# 	myDurationSeconds = 0			don't edit
 # 	myResultVar = 0					don't edit
-# 	runId = 1						don't edit
 # 	restDurationSeconds = 0			don't edit
+# 	runId = 0						don't edit
+# 	secondsLeft = 0					don't edit
+# 	step = 0						don't edit
 #
 # 	==> Don't forget to set the result format to 0 decimal.
 #
@@ -94,7 +95,9 @@ if (step < 1) {
 		/* Press the "LAP" watch button to go for the first run */
 		if (SUUNTO_LAP_NUMBER > 1) {
 			Suunto.alarmBeep();
+			runId = 1;
 			step = 1;
+			stepOfLastRun = (4 * reps) - 1;
 
 			/* initialize values for pace monitoring */
 /*
@@ -120,7 +123,8 @@ disabled for Ambit 3 Peak
 /*******
  * RUN *
  *******/
-else if (step==1 || step==3 || step==5 || step==7 || step==9 || step==11 || step==13 || step==15 || step==17 || step==19) {
+//else if (step==1 || step==3 || step==5 || step==7 || step==9 || step==11 || step==13 || step==15 || step==17 || step==19) {
+else if (step>0 && step<=stepOfLastRun && mod(step,2)==1) {
 
 	endOfStepKm = myDistanceKm + runLengthMeters / 1000;
 
@@ -151,11 +155,12 @@ disabled for Ambit 3 Peak
 /**********************
  * SHORT + LONG RESTS *
  *********************/
-else if (step==2 || step==4 || step==6 || step==8 || step==10 || step==12 || step==14 || step==16 || step==18) {
+//else if (step==2 || step==4 || step==6 || step==8 || step==10 || step==12 || step==14 || step==16 || step==18) {
+else if (step>1 && step<stepOfLastRun && mod(step,2)==0) {
 
 	restDurationSeconds = restBetweenRepsSeconds;
 	/* IS THIS THE LONG REST ? */
-	if (step == 10) {
+	if (step == (2 * reps)) {
 		restDurationSeconds = restBetweenSeriesSeconds;
 		}
 
@@ -181,7 +186,7 @@ else if (step==2 || step==4 || step==6 || step==8 || step==10 || step==12 || ste
 /*************
  * CALM DOWN *
  *************/
-else if (step > 19) {
+else if (step > stepOfLastRun) {
 	prefix = "CALM";
 	}
 
