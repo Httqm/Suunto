@@ -103,8 +103,8 @@ if (step < 1) {
 /*
 disabled for Ambit 3 Peak
 			targetPace = targetPacePerKmMinutes + (targetPacePerKmSeconds / 60);
-			paceAlertTooFast = targetPace * (100 - paceMarginPercent) / 100;	/* these are minutes/km, so the lower the value, the faster you run */
-			paceAlertTooSlow = targetPace * (100 + paceMarginPercent) / 100;	/* ...and vice-versa ;-) */
+			paceAlertTooFast = targetPace * (100 - paceMarginPercent) / 100;
+			paceAlertTooSlow = targetPace * (100 + paceMarginPercent) / 100;
 */
 
 			myDistanceKm = SUUNTO_DISTANCE;
@@ -123,7 +123,6 @@ disabled for Ambit 3 Peak
 /*******
  * RUN *
  *******/
-//else if (step==1 || step==3 || step==5 || step==7 || step==9 || step==11 || step==13 || step==15 || step==17 || step==19) {
 else if (step>0 && step<=stepOfLastRun && mod(step,2)==1) {
 
 	endOfStepKm = myDistanceKm + runLengthMeters / 1000;
@@ -155,7 +154,6 @@ disabled for Ambit 3 Peak
 /**********************
  * SHORT + LONG RESTS *
  *********************/
-//else if (step==2 || step==4 || step==6 || step==8 || step==10 || step==12 || step==14 || step==16 || step==18) {
 else if (step>1 && step<stepOfLastRun && mod(step,2)==0) {
 
 	restDurationSeconds = restBetweenRepsSeconds;
