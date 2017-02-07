@@ -121,7 +121,7 @@ if (step < 1) {
 /*******
  * RUN *
  *******/
-else if (step>=1 && step<=stepOfLastRun && mod(step,2)==1) {
+else if (step>0 && step<=stepOfLastRun && mod(step,2)==1) {
 
 	endOfStepKm = myDistanceKm + runLengthMeters / 1000;
 
@@ -151,7 +151,7 @@ else if (step>=1 && step<=stepOfLastRun && mod(step,2)==1) {
 /**********************
  * SHORT + LONG RESTS *
  *********************/
-else if (step>=2 && step<=(stepOfLastRun - 1) && mod(step,2)==0) {
+else if (step>1 && step<stepOfLastRun && mod(step,2)==0) {
 
 	restDurationSeconds = restBetweenRepsSeconds;
 	if (step == (2 * reps)) {
