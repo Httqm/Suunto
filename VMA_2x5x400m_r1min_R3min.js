@@ -1,6 +1,6 @@
 /*
 ######################################### VMA 2x5x400m r1min R3min ##################################
-# version : 20160922
+# version : 20170207
 #
 # DESCRIPTION :
 # 	Training :
@@ -97,9 +97,12 @@ if (step < 1) {
 			step = 1;
 
 			/* initialize values for pace monitoring */
+/*
+disabled for Ambit 3 Peak
 			targetPace = targetPacePerKmMinutes + (targetPacePerKmSeconds / 60);
 			paceAlertTooFast = targetPace * (100 - paceMarginPercent) / 100;	/* these are minutes/km, so the lower the value, the faster you run */
 			paceAlertTooSlow = targetPace * (100 + paceMarginPercent) / 100;	/* ...and vice-versa ;-) */
+*/
 
 			myDistanceKm = SUUNTO_DISTANCE;
 			}
@@ -136,8 +139,11 @@ else if (step==1 || step==3 || step==5 || step==7 || step==9 || step==11 || step
 
 		/* PACE MONITOR */
 		postfix="";
+/*
+disabled for Ambit 3 Peak
 		if (SUUNTO_PACE > paceAlertTooSlow) { postfix="++"; }
 		if (SUUNTO_PACE < paceAlertTooFast) { postfix="--"; }
+*/
 		}
 	}
 
