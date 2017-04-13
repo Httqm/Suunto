@@ -18,7 +18,7 @@
 # 	==> Don't forget to set the result format to 0 decimal.
 #
 # SUGGESTED WATCH SCREEN CONFIGURATION :
-#	- pace
+#	- heart rate
 #	- this app
 #	- distance (competition) OR lap distance / lap duration (training)
 ########################################## ##########################################################
