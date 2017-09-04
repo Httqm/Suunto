@@ -1,6 +1,6 @@
 /*
 ######################################### VMA 2xNx30-30 R3min #######################################
-# version : 20170125
+# version : 20170904
 #
 # DESCRIPTION :
 #	Training :
@@ -14,7 +14,7 @@
 #			- duration :	30s
 #			- distance :	free
 #			- HR :			free
-#			- pace :		VMA 100 (3:40 min/km)
+#			- pace :		VMA 100 / VMA 105
 #			- short rest :	30s
 #			- long rest :	3min
 #
@@ -35,8 +35,8 @@
 #		After the last run, the watch displays "CALM".
 #
 # VARIABLES :
-#	warmUpMinimumDurationMinutes = 20	can be edited
-#	reps = 10							can be edited, 2x reps x30-30
+#	warmUpMinimumDurationMinutes = 25	can be edited
+#	reps = 8 / 10 / 12					can be edited, 2x reps x30-30
 #	runDurationSeconds = 30				can be edited
 #	restBetweenRepsSeconds = 30			can be edited
 #	restBetweenSeriesMinutes = 3		can be edited
