@@ -1,6 +1,6 @@
 /*
 ######################################### Pilates ###################################################
-# version : 20171113
+# version : 20190325
 #
 # Source of program exercies : http://barbichette.fr/gainage-abdos-programme-dexercices/
 #	Gainage bras tendus : 60 sec
@@ -10,42 +10,37 @@
 #	Gainage bras tendus : 30 sec
 #	Gainage coudes : 60 sec
 #
-# Steps :
-#	0	ready
-#	1	full plank 60s
-#	2	rest
-#	3	elbow plank 30s
-#	4	rest
-#	5	raised leg elbow plank 30s
-#	6	rest
-#	7	raised leg (other leg) elbow plank 30s
-#	8	rest
-#	9	side elbow plank 30s
-#	10	rest
-#	11	side elbow plank (other side) 30s
-#	12	rest
-#	13	full plank 30s
-#	14	rest
-#	15	elbow plank 60s
-#	16	end
+# Step	| Duration [s]	| Action
+# ------+---------------+-----------------------------------
+#	0	|	-			| get ready
+#	1	|	60			| full plank 1
+#	2	|		20		| rest
+#	3	|	30			| elbow plank 2
+#	4	|		20		| rest
+#	5	|	30			| raised leg elbow plank
+#	6	|		20		| rest
+#	7	|	30			| raised leg (other leg) elbow plank
+#	8	|		20		| rest
+#	9	|	30			| side elbow plank
+#	10	|		20		| rest
+#	11	|	30			| side elbow plank (other side)
+#	12	|		20		| rest
+#	13	|	30			| full plank 2
+#	14	|		20		| rest
+#	15	|	60			| elbow plank 2
+#	16	|	-			| end
 #
 #
 # VARIABLES :
 #
-# fullPlankSeconds1					= 60	CAN BE EDITED
-# elbowPlankSeconds1				= 30	CAN BE EDITED
-# raisedLegElbowPlankPerLegSeconds	= 30	CAN BE EDITED
-# sideElbowPlankPerSideSeconds		= 30	CAN BE EDITED
-# fullPlankSeconds2					= 30	CAN BE EDITED
-# elbowPlankSeconds2				= 60	CAN BE EDITED
-#
-# difficultyPercent					= 100	CAN BE EDITED (will be used in a future version)
-#
+# difficultyPercent					= 100	CAN BE EDITED
+# fullDurationSeconds				= 60	DON'T EDIT
+# halfDurationSeconds				= 30	DON'T EDIT
 # restBetweenExercicesSeconds		= 20	DON'T EDIT
+#
 # readyCountdownSeconds				= 10	DON'T EDIT
 # endOfStepSeconds					= 0		DON'T EDIT
 # step								= 0		DON'T EDIT
-#
 #
 #	==> Don't forget to set the result format to 0 decimal.
 #
@@ -74,7 +69,7 @@ if (step < 1) {
  * Full plank 1 *
  ***************/
 else if (step == 1) {
-	endOfStepSeconds = myDurationSeconds + fullPlankSeconds1;
+	endOfStepSeconds = myDurationSeconds + fullDurationSeconds;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
 		Suunto.alarmBeep();
 		step = step + 1;
@@ -102,7 +97,7 @@ else if (mod(step,2)==0 && step>=2 && step<15) {
  * Elbow plank 1 *
  ****************/
 else if (step == 3) {
-	endOfStepSeconds = myDurationSeconds + elbowPlankSeconds1;
+	endOfStepSeconds = myDurationSeconds + halfDurationSeconds;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
 		Suunto.alarmBeep();
 		step = step + 1;
@@ -116,7 +111,7 @@ else if (step == 3) {
  * Raised leg plank (leg1) *
  **************************/
 else if (step == 5) {
-	endOfStepSeconds = myDurationSeconds + raisedLegElbowPlankPerLegSeconds;
+	endOfStepSeconds = myDurationSeconds + halfDurationSeconds;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
 		Suunto.alarmBeep();
 		step = step + 1;
@@ -130,7 +125,7 @@ else if (step == 5) {
  * Raised leg plank (leg2) *
  **************************/
 else if (step == 7) {
-	endOfStepSeconds = myDurationSeconds + raisedLegElbowPlankPerLegSeconds;
+	endOfStepSeconds = myDurationSeconds + halfDurationSeconds;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
 		Suunto.alarmBeep();
 		step = step + 1;
@@ -144,7 +139,7 @@ else if (step == 7) {
  * Side plank (side1) *
  *********************/
 else if (step == 9) {
-	endOfStepSeconds = myDurationSeconds + sideElbowPlankPerSideSeconds;
+	endOfStepSeconds = myDurationSeconds + halfDurationSeconds;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
 		Suunto.alarmBeep();
 		step = step + 1;
@@ -158,7 +153,7 @@ else if (step == 9) {
  * Side plank (side2) *
  *********************/
 else if (step == 11) {
-	endOfStepSeconds = myDurationSeconds + sideElbowPlankPerSideSeconds;
+	endOfStepSeconds = myDurationSeconds + halfDurationSeconds;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
 		Suunto.alarmBeep();
 		step = step + 1;
@@ -172,7 +167,7 @@ else if (step == 11) {
  * Full plank 2 *
  ***************/
 else if (step == 13) {
-	endOfStepSeconds = myDurationSeconds + fullPlankSeconds2;
+	endOfStepSeconds = myDurationSeconds + halfDurationSeconds;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
 		Suunto.alarmBeep();
 		step = step + 1;
@@ -186,7 +181,7 @@ else if (step == 13) {
  * Elbow plank 2 *
  ****************/
 else if (step == 15) {
-	endOfStepSeconds = myDurationSeconds + elbowPlankSeconds2;
+	endOfStepSeconds = myDurationSeconds + fullDurationSeconds;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
 		Suunto.alarmBeep();
 		step = step + 1;
