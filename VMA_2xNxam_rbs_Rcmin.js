@@ -20,10 +20,6 @@
 #
 #	RUNS :
 #		The watch displays "RUN 1" during the 1st fast run, "RUN 2" during the 2nd fast run, and so on.
-#		The built-in pace monitor will warn by displaying if the running pace is :
-#			- too fast		: "RUN n --"
-#			- within specs	: "RUN n"
-#			- too slow		: "RUN n ++"
 #
 #	RESTS :
 #		During rests, the watch displays the number of remaining seconds : "RST n S".
@@ -38,17 +34,11 @@
 #	runLengthMeters = 400				can be edited
 #	warmUpMinimumDurationMinutes = 25	can be edited
 #
-#
 #	PACE MONITORING
 #	==> this declares the target run pace as 3:50 min/km
 #	targetPacePerKmMinutes = 3		can be edited
 #	targetPacePerKmSeconds = 50		can be edited
 #	targetPace = 0					don't edit
-#	paceAlertTooFast = 0			don't edit
-#	paceAlertTooSlow = 0			don't edit
-#
-#	paceMarginPercent = 8			can be edited. Means "OK if running within +/-8% of target pace".
-#									With margin = 8% and target pace = 3:50min/km, fastest = 3:39, slowest = 4:02
 #
 #	endOfStepKm = 0					don't edit
 #	endOfStepSeconds = 0			don't edit
@@ -94,15 +84,6 @@ if (step < 1) {
 			runId = 1;
 			step = 1;
 			stepOfLastRun = (4 * reps) - 1;
-
-			/* initialize values for pace monitoring */
-/*
-disabled for Ambit 3 Peak
-			targetPace = targetPacePerKmMinutes + (targetPacePerKmSeconds / 60);
-			paceAlertTooFast = targetPace * (100 - paceMarginPercent) / 100;
-			paceAlertTooSlow = targetPace * (100 + paceMarginPercent) / 100;
-*/
-
 			myDistanceKm = SUUNTO_DISTANCE;
 			}
 		}
@@ -135,14 +116,7 @@ else if (step>0 && step<=stepOfLastRun && mod(step,2)==1) {
 		/* NOT YET */
 		prefix = "RUN";
 		myResultVar = runId;
-
-		/* PACE MONITOR */
 		postfix="";
-/*
-disabled for Ambit 3 Peak
-		if (SUUNTO_PACE > paceAlertTooSlow) { postfix="++"; }
-		if (SUUNTO_PACE < paceAlertTooFast) { postfix="--"; }
-*/
 		}
 	}
 
