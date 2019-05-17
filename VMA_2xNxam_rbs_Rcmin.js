@@ -3,16 +3,12 @@
 # version : 20190517
 #
 # DESCRIPTION :
-#	Training :
-#		- type :		VMA
-#		- fast runs :
-#			- reps :		2xN
-#			- duration :	free
-#			- distance :	"a" meters ("a" in 200 / 300 / 400 / ...)
-#			- HR :			free
-#			- pace :		VMA 95/100/105
-#			- short rest :	"b" s
-#			- long rest :	"c" min
+#	- type :			VMA
+#	- fast runs :
+#		- reps :		2xN
+#		- distance :	"a" meters ("a" in 200 / 300 / 400 / ...)
+#		- short rest :	"b" s
+#		- long rest :	"c" min
 #
 #	WARM UP :
 #		Upon starting exercice, the app is in "Warmup" mode, until the 'LAP' button is pressed for the 1st fast run.
