@@ -32,17 +32,20 @@
 #
 #	PACE MONITORING
 #	==> this declares the target run pace as 3:50 min/km
-#	targetPacePerKmMinutes = 3		can be edited
-#	targetPacePerKmSeconds = 50		can be edited
-#	targetPace = 0					don't edit
+#	targetPacePerKm_minutes = 3		can be edited
+#	targetPacePerKm_seconds = 50		can be edited
 #
 #	endOfStepKm = 0					don't edit
 #	endOfStepSeconds = 0			don't edit
-#	myDistanceKm = 0				don't edit
-#	myDurationSeconds = 0			don't edit
+
+#	currentFastRun_startPointKm = 0			don't edit
+#	currentFastRun_startPointSeconds = 0	don't edit
+#	==> these are meant "since the start of the exercice"
+
+#	myDurationSeconds = 0			don't edit	TODO: redundant with 'currentFastRun_startPointSeconds' ?
 #	myResultVar = 0					don't edit
 #	restDurationSeconds = 0			don't edit
-#	runId = 0						don't edit
+#	runId = 0						don't edit	TODO: this is never displayed anymore. Fix it
 #	secondsLeft = 0					don't edit
 #	step = 0						don't edit
 #
@@ -56,10 +59,12 @@
 */
 
 /* While in sport mode do this once per second */
+
+/* may be redundant
 prefix = "";
 RESULT = myResultVar;
 postfix = "";
-
+*/
 
 /***********
  * WARM UP *
@@ -73,14 +78,15 @@ if (step < 1) {
 		prefix = "H";
 		myResultVar = 0;
 		postfix = "T";	/* ==> 'HOT' ;-) */
+		stepOfLastRun = (4 * reps) - 1;
 
 		/* Press the "LAP" watch button to go for the first run */
 		if (SUUNTO_LAP_NUMBER > 1) {
 			Suunto.alarmBeep();
 			runId = 1;
 			step = 1;
-			stepOfLastRun = (4 * reps) - 1;
-			myDistanceKm = SUUNTO_DISTANCE;
+			currentFastRun_startPointKm = SUUNTO_DISTANCE;
+			currentFastRun_startPointSeconds = SUUNTO_DURATION;
 			}
 		}
 	else {
@@ -98,7 +104,8 @@ if (step < 1) {
  *******/
 else if (step>0 && step<=stepOfLastRun && mod(step,2)==1) {
 
-	endOfStepKm = myDistanceKm + runLengthMeters / 1000;
+	endOfStepKm = currentFastRun_startPointKm + runLengthMeters / 1000;
+
 
 	/* IS THIS RUN OVER ? */
 	if (SUUNTO_DISTANCE > endOfStepKm) {
@@ -110,9 +117,30 @@ else if (step>0 && step<=stepOfLastRun && mod(step,2)==1) {
 		}
 	else {
 		/* NOT YET */
+
+		/* BASIC MODE, JUST DISPLAYING 'RUN n' */
+/*
 		prefix = "RUN";
 		myResultVar = runId;
 		postfix="";
+*/
+
+		/* "Virtual Partner" MODE
+
+			details about the formula below :
+
+				distanceKmInThisRun_me = (SUUNTO_DISTANCE - currentFastRun_startPointKm)
+
+				durationSecondsSoFarInThisFastRun = (SUUNTO_DURATION - currentFastRun_startPointSeconds)
+				distanceMetersInThisRun_virtualPartner = (SUUNTO_DURATION - currentFastRun_startPointSeconds) * 1000 / (60 * targetPacePerKm_minutes + targetPacePerKm_seconds);
+				distanceKmInThisRun_virtualPartner = (SUUNTO_DURATION - currentFastRun_startPointSeconds) / (60 * targetPacePerKm_minutes + targetPacePerKm_seconds);
+
+				distanceMetersBetweenVirtualPartnerAndMe = (distanceKmInThisRun_virtualPartner - distanceKmInThisRun_me) * 1000;
+				distanceMetersBetweenVirtualPartnerAndMe = ((SUUNTO_DURATION - currentFastRun_startPointSeconds) / (60 * targetPacePerKm_minutes + targetPacePerKm_seconds) - (SUUNTO_DISTANCE - currentFastRun_startPointKm)) * 1000;
+		*/
+		prefix = "VP0";
+		RESULT = ((SUUNTO_DURATION - currentFastRun_startPointSeconds) / (60 * targetPacePerKm_minutes + targetPacePerKm_seconds) - (SUUNTO_DISTANCE - currentFastRun_startPointKm)) * 1000;
+		postfix = "m";
 		}
 	}
 
@@ -135,7 +163,7 @@ else if (step>1 && step<stepOfLastRun && mod(step,2)==0) {
 		/* YES : REST IS OVER */
 		Suunto.alarmBeep();
 		step = step + 1;
-		myDistanceKm = SUUNTO_DISTANCE;
+		currentFastRun_startPointKm = SUUNTO_DISTANCE;
 		}
 	else {
 		/* NOT YET */
