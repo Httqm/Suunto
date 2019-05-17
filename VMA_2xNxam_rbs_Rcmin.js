@@ -1,66 +1,66 @@
 /*
 ######################################### VMA 2xNxam rbs Rcmin ###################################
-# version : 20170910
+# version : 20190517
 #
 # DESCRIPTION :
-# 	Training :
-# 		- type :		VMA
-# 		- fast runs :
-# 			- reps :		2xN
-# 			- duration :	free
-# 			- distance :	"a" meters ("a" in 200 / 300 / 400 / ...)
-# 			- HR :			free
-# 			- pace :		VMA 95/100/105
-# 			- short rest : 	"b" s
-# 			- long rest : 	"c" min
+#	Training :
+#		- type :		VMA
+#		- fast runs :
+#			- reps :		2xN
+#			- duration :	free
+#			- distance :	"a" meters ("a" in 200 / 300 / 400 / ...)
+#			- HR :			free
+#			- pace :		VMA 95/100/105
+#			- short rest :	"b" s
+#			- long rest :	"c" min
 #
-# 	WARM UP :
-# 		Upon starting exercice, the app is in "Warmup" mode, until the 'LAP' button is pressed for the 1st fast run.
-# 		After the 'warmUpMinimumDurationMinutes' is over, the watch displays 'H 0 T'
+#	WARM UP :
+#		Upon starting exercice, the app is in "Warmup" mode, until the 'LAP' button is pressed for the 1st fast run.
+#		After the 'warmUpMinimumDurationMinutes' is over, the watch displays 'H 0 T'
 #
-# 	RUNS :
-# 		The watch displays "RUN 1" during the 1st fast run, "RUN 2" during the 2nd fast run, and so on.
+#	RUNS :
+#		The watch displays "RUN 1" during the 1st fast run, "RUN 2" during the 2nd fast run, and so on.
 #		The built-in pace monitor will warn by displaying if the running pace is :
 #			- too fast		: "RUN n --"
 #			- within specs	: "RUN n"
 #			- too slow		: "RUN n ++"
 #
-# 	RESTS :
-# 		During rests, the watch displays the number of remaining seconds : "RST n S".
+#	RESTS :
+#		During rests, the watch displays the number of remaining seconds : "RST n S".
 #
-# 	CALM DOWN :
-# 		After the last run, the watch displays "CALM".
+#	CALM DOWN :
+#		After the last run, the watch displays "CALM".
 #
 # VARIABLES :
 #	reps = 5							can be edited, 2x reps x runLengthMeters
-# 	restBetweenRepsSeconds = 60			can be edited
-# 	restBetweenSeriesSeconds = 180		can be edited
-# 	runLengthMeters = 400				can be edited
-# 	warmUpMinimumDurationMinutes = 25	can be edited
+#	restBetweenRepsSeconds = 60			can be edited
+#	restBetweenSeriesSeconds = 180		can be edited
+#	runLengthMeters = 400				can be edited
+#	warmUpMinimumDurationMinutes = 25	can be edited
 #
 #
 #	PACE MONITORING
-# 	==> this declares the target run pace as 3:50 min/km
-# 	targetPacePerKmMinutes = 3		can be edited
-# 	targetPacePerKmSeconds = 50		can be edited
-# 	targetPace = 0					don't edit
-# 	paceAlertTooFast = 0			don't edit
-# 	paceAlertTooSlow = 0			don't edit
+#	==> this declares the target run pace as 3:50 min/km
+#	targetPacePerKmMinutes = 3		can be edited
+#	targetPacePerKmSeconds = 50		can be edited
+#	targetPace = 0					don't edit
+#	paceAlertTooFast = 0			don't edit
+#	paceAlertTooSlow = 0			don't edit
 #
-# 	paceMarginPercent = 8			can be edited. Means "OK if running within +/-8% of target pace".
-# 									With margin = 8% and target pace = 3:50min/km, fastest = 3:39, slowest = 4:02
+#	paceMarginPercent = 8			can be edited. Means "OK if running within +/-8% of target pace".
+#									With margin = 8% and target pace = 3:50min/km, fastest = 3:39, slowest = 4:02
 #
-# 	endOfStepKm = 0					don't edit
-# 	endOfStepSeconds = 0			don't edit
-# 	myDistanceKm = 0				don't edit
-# 	myDurationSeconds = 0			don't edit
-# 	myResultVar = 0					don't edit
-# 	restDurationSeconds = 0			don't edit
-# 	runId = 0						don't edit
-# 	secondsLeft = 0					don't edit
-# 	step = 0						don't edit
+#	endOfStepKm = 0					don't edit
+#	endOfStepSeconds = 0			don't edit
+#	myDistanceKm = 0				don't edit
+#	myDurationSeconds = 0			don't edit
+#	myResultVar = 0					don't edit
+#	restDurationSeconds = 0			don't edit
+#	runId = 0						don't edit
+#	secondsLeft = 0					don't edit
+#	step = 0						don't edit
 #
-# 	==> Don't forget to set the result format to 0 decimal.
+#	==> Don't forget to set the result format to 0 decimal.
 #
 # SUGGESTED WATCH SCREEN CONFIGURATION :
 #	- pace
