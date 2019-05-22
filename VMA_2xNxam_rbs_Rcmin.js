@@ -1,14 +1,14 @@
 /*
-######################################### VMA 2xNxam rbs Rcmin ###################################
+######################################### VMA 2xNxAm rBs RCmin ###################################
 # version : 20190517
 #
 # DESCRIPTION :
 #	- type :			VMA
 #	- fast runs :
 #		- reps :		2xN
-#		- distance :	"a" meters ("a" in 200 / 300 / 400 / ...)
-#		- short rest :	"b" s
-#		- long rest :	"c" min
+#		- distance :	"A" meters ("A" in 200 / 300 / 400 / ...)
+#		- short rest :	"B" s
+#		- long rest :	"C" min
 #
 #	WARM UP :
 #		Upon starting exercice, the app is in "Warmup" mode, until the 'LAP' button is pressed for the 1st fast run.
@@ -24,15 +24,15 @@
 #		After the last run, the watch displays "CALM".
 #
 # VARIABLES :
-#	reps = 5							can be edited, 2x reps x runLengthMeters
-#	restBetweenRepsSeconds = 60			can be edited
-#	restBetweenSeriesSeconds = 180		can be edited
-#	runLengthMeters = 400				can be edited
+#	reps = 5							can be edited, 'N' of program name
+#	runLengthMeters = 400				can be edited, 'A' of program name
+#	restBetweenRepsSeconds = 60			can be edited, 'B' of program name
+#	restBetweenSeriesSeconds = 180		can be edited, 'C' of program name
 #	warmUpMinimumDurationMinutes = 25	can be edited
 #
 #	PACE MONITORING
 #	==> this declares the target run pace as 3:50 min/km
-#	targetPacePerKm_minutes = 3		can be edited
+#	targetPacePerKm_minutes = 3			can be edited
 #	targetPacePerKm_seconds = 50		can be edited
 #
 #	endOfStepKm = 0					don't edit
@@ -60,11 +60,12 @@
 
 /* While in sport mode do this once per second */
 
-/* may be redundant
+
+/* this looks redundant but is required actually */
 prefix = "";
 RESULT = myResultVar;
 postfix = "";
-*/
+
 
 /***********
  * WARM UP *
