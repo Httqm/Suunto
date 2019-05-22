@@ -165,6 +165,7 @@ else if (step>1 && step<stepOfLastRun && mod(step,2)==0) {
 		Suunto.alarmBeep();
 		step = step + 1;
 		currentFastRun_startPointKm = SUUNTO_DISTANCE;
+		currentFastRun_startPointSeconds = SUUNTO_DURATION;
 		}
 	else {
 		/* NOT YET */
