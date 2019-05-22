@@ -1,5 +1,5 @@
 /*
-######################################### VMA 2xNxAm rBs RCmin ###################################
+######################################### VMA 2xNxAm rBs RCs ########################################
 # version : 20190517
 #
 # DESCRIPTION :
@@ -8,7 +8,7 @@
 #		- reps :		2xN
 #		- distance :	"A" meters ("A" in 200 / 300 / 400 / ...)
 #		- short rest :	"B" s
-#		- long rest :	"C" min
+#		- long rest :	"C" s
 #
 #	WARM UP :
 #		Upon starting exercice, the app is in "Warmup" mode, until the 'LAP' button is pressed for the 1st fast run.
