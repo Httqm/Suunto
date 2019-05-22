@@ -1,6 +1,6 @@
 /*
 ######################################### VMA 2xNxAm rBs RCs ########################################
-# version : 20190517
+# version : 20190522
 #
 # DESCRIPTION :
 #	- type :			VMA
@@ -130,17 +130,35 @@ else if (step>0 && step<=stepOfLastRun && mod(step,2)==1) {
 
 			details about the formula below :
 
-				distanceKmInThisRun_me = (SUUNTO_DISTANCE - currentFastRun_startPointKm)
+				distanceKmInThisRun_me = SUUNTO_DISTANCE - currentFastRun_startPointKm
+				distanceMetersInThisRun_me
+					= distanceKmInThisRun_me * 1000
+					= (SUUNTO_DISTANCE - currentFastRun_startPointKm) * 1000
 
-				durationSecondsSoFarInThisFastRun = (SUUNTO_DURATION - currentFastRun_startPointSeconds)
-				distanceMetersInThisRun_virtualPartner = (SUUNTO_DURATION - currentFastRun_startPointSeconds) * 1000 / (60 * targetPacePerKm_minutes + targetPacePerKm_seconds);
-				distanceKmInThisRun_virtualPartner = (SUUNTO_DURATION - currentFastRun_startPointSeconds) / (60 * targetPacePerKm_minutes + targetPacePerKm_seconds);
 
-				distanceMetersBetweenVirtualPartnerAndMe = (distanceKmInThisRun_virtualPartner - distanceKmInThisRun_me) * 1000;
-				distanceMetersBetweenVirtualPartnerAndMe = ((SUUNTO_DURATION - currentFastRun_startPointSeconds) / (60 * targetPacePerKm_minutes + targetPacePerKm_seconds) - (SUUNTO_DISTANCE - currentFastRun_startPointKm)) * 1000;
+				durationSecondsSoFarInThisFastRun = SUUNTO_DURATION - currentFastRun_startPointSeconds
+
+				seconds	|	270		|	durationSecondsSoFarInThisFastRun
+				--------+-----------+-------------------------------------
+				meters	|	1000	|	distanceMetersInThisRun_virtualPartner
+
+				NB: 270s/1000m = 4:30min/km
+
+
+				distanceMetersInThisRun_virtualPartner
+					= durationSecondsSoFarInThisFastRun * 1000 / 270
+					= (SUUNTO_DURATION - currentFastRun_startPointSeconds) * 1000 / (60 * targetPacePerKm_minutes + targetPacePerKm_seconds)
+
+
+				distanceMetersBetweenVirtualPartnerAndMe
+					= distanceMetersInThisRun_virtualPartner - distanceMetersInThisRun_me
+					= ((SUUNTO_DURATION - currentFastRun_startPointSeconds) * 1000 / (60 * targetPacePerKm_minutes + targetPacePerKm_seconds)) - ((SUUNTO_DISTANCE - currentFastRun_startPointKm) * 1000)
+					= ((SUUNTO_DURATION - currentFastRun_startPointSeconds) / (60 * targetPacePerKm_minutes + targetPacePerKm_seconds) - (SUUNTO_DISTANCE - currentFastRun_startPointKm)) * 1000
+					= ((SUUNTO_DURATION - currentFastRun_startPointSeconds) / (60 * targetPacePerKm_minutes + targetPacePerKm_seconds) - SUUNTO_DISTANCE + currentFastRun_startPointKm) * 1000
+
 		*/
 		prefix = "VP0";
-		RESULT = ((SUUNTO_DURATION - currentFastRun_startPointSeconds) / (60 * targetPacePerKm_minutes + targetPacePerKm_seconds) - (SUUNTO_DISTANCE - currentFastRun_startPointKm)) * 1000;
+		RESULT = ((SUUNTO_DURATION - currentFastRun_startPointSeconds) / (60 * targetPacePerKm_minutes + targetPacePerKm_seconds) - SUUNTO_DISTANCE + currentFastRun_startPointKm) * 1000;
 		postfix = "m";
 		}
 	}
