@@ -23,28 +23,20 @@
 # ------+---------------+-----------------------------------
 #	0	|	-			| get ready ('readyCountdownSeconds' seconds countdown)
 #	1	|	60			| full plank 1
-#	2	|		n		| rest during 'restBetweenExercicesSeconds' seconds
-#	3	|	30			| elbow plank 2
-#	4	|		n		| rest during 'restBetweenExercicesSeconds' seconds
-#	5	|	30			| raised leg elbow plank
-#	6	|		n		| rest during 'restBetweenExercicesSeconds' seconds
-#	7	|	30			| raised leg (other leg) elbow plank
-#	8	|		n		| rest during 'restBetweenExercicesSeconds' seconds
-#	9	|	30			| side elbow plank
-#	10	|		n		| rest during 'restBetweenExercicesSeconds' seconds
-#	11	|	30			| side elbow plank (other side)
-#	12	|		n		| rest during 'restBetweenExercicesSeconds' seconds
-#	13	|	30			| full plank 2
-#	14	|		n		| rest during 'restBetweenExercicesSeconds' seconds
-#	15	|	60			| elbow plank 2
-#	16	|	-			| end
+#	2	|	30			| elbow plank 1
+#	3	|	30			| raised leg elbow plank
+#	4	|	30			| raised leg (other leg) elbow plank
+#	5	|	30			| side elbow plank
+#	6	|	30			| side elbow plank (other side)
+#	7	|	30			| full plank 2
+#	8	|	60			| elbow plank 2
+#	9	|	-			| end
 #
 #
 # VARIABLES :
 #
 # difficultyPercent					= 100	CAN BE EDITED
 # readyCountdownSeconds				= 10	CAN BE EDITED
-# restBetweenExercicesSeconds		= 20	CAN BE EDITED
 #
 # fullDurationSeconds				= 60	DON'T EDIT
 # halfDurationSeconds				= 30	DON'T EDIT
@@ -68,7 +60,6 @@ if (step < 1) {
 	/* compute durations "with difficulty" */
 	fullDurationSeconds_difficult			= round(fullDurationSeconds * difficultyPercent / 100);
 	halfDurationSeconds_difficult			= round(halfDurationSeconds * difficultyPercent / 100);
-	restBetweenExercicesSeconds_difficult	= round(restBetweenExercicesSeconds * difficultyPercent / 100);
 
 	endOfStepSeconds = readyCountdownSeconds;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
@@ -94,24 +85,10 @@ else if (step == 1) {
 	}
 
 
-/********
- * REST *
- *******/
-else if (mod(step,2)==0 && step>=2 && step<15) {
-	endOfStepSeconds = myDurationSeconds + restBetweenExercicesSeconds_difficult;
-	if (SUUNTO_DURATION > endOfStepSeconds) {
-		Suunto.alarmBeep();
-		step = step + 1;
-		myDurationSeconds = SUUNTO_DURATION;
-		}
-	else { prefix = "RST"; }
-	}
-
-
 /*****************
  * Elbow plank 1 *
  ****************/
-else if (step == 3) {
+else if (step == 2) {
 	endOfStepSeconds = myDurationSeconds + halfDurationSeconds_difficult;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
 		Suunto.alarmBeep();
@@ -125,7 +102,7 @@ else if (step == 3) {
 /*********************************
  * Raised leg elbow plank (leg1) *
  ********************************/
-else if (step == 5) {
+else if (step == 3) {
 	endOfStepSeconds = myDurationSeconds + halfDurationSeconds_difficult;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
 		Suunto.alarmBeep();
@@ -139,7 +116,7 @@ else if (step == 5) {
 /*********************************
  * Raised leg elbow plank (leg2) *
  ********************************/
-else if (step == 7) {
+else if (step == 4) {
 	endOfStepSeconds = myDurationSeconds + halfDurationSeconds_difficult;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
 		Suunto.alarmBeep();
@@ -153,7 +130,7 @@ else if (step == 7) {
 /****************************
  * Side elbow plank (side1) *
  ***************************/
-else if (step == 9) {
+else if (step == 5) {
 	endOfStepSeconds = myDurationSeconds + halfDurationSeconds_difficult;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
 		Suunto.alarmBeep();
@@ -167,7 +144,7 @@ else if (step == 9) {
 /****************************
  * Side elbow plank (side2) *
  ***************************/
-else if (step == 11) {
+else if (step == 6) {
 	endOfStepSeconds = myDurationSeconds + halfDurationSeconds_difficult;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
 		Suunto.alarmBeep();
@@ -181,7 +158,7 @@ else if (step == 11) {
 /****************
  * Full plank 2 *
  ***************/
-else if (step == 13) {
+else if (step == 7) {
 	endOfStepSeconds = myDurationSeconds + halfDurationSeconds_difficult;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
 		Suunto.alarmBeep();
@@ -195,7 +172,7 @@ else if (step == 13) {
 /*****************
  * Elbow plank 2 *
  ****************/
-else if (step == 15) {
+else if (step == 8) {
 	endOfStepSeconds = myDurationSeconds + fullDurationSeconds_difficult;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
 		Suunto.alarmBeep();
@@ -209,7 +186,7 @@ else if (step == 15) {
 /*************
  * THE END ! *
  ************/
-else if (step == 16) { prefix = "END"; }
+else if (step > 8) { prefix = "END"; }
 
 
 RESULT = endOfStepSeconds - SUUNTO_DURATION;
