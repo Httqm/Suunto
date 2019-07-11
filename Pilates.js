@@ -1,32 +1,41 @@
 /*
 ######################################### Pilates ###################################################
-# version : 20190325
+# version : 20190711
 #
-# Source of program exercies : http://barbichette.fr/gainage-abdos-programme-dexercices/
-#	Gainage bras tendus : 60 sec
-#	Gainage coudes : 30 sec
-#	Gainage jambe levée : 30 sec / jambe
-#	Gainage latéral : 30 sec par côté
-#	Gainage bras tendus : 30 sec
-#	Gainage coudes : 60 sec
+# "Five minute plank", source :
+#	https://www.darebee.com/workouts/five-minute-plank-workout.html
+#	via : http://barbichette.fr/gainage-abdos-programme-dexercices/
+#
+#	Full plank :				60 sec
+#	Elbow plank :				30 sec
+#	Raised leg elbow plank :	30 sec each leg
+#	Side elbow plank :			30 sec each side
+#	Full plank :				30 sec
+#	Elbow plank :				60 sec
+#
+#	NB:	this Suunto program has a 'difficultyPercent' setting (see below) that allows extending / shortening
+#		the exercices duration. The durations above are applied when set to 100%.
+#
+#	Transitions between exercises : none (see https://www.darebee.com/manual.html)
+#
 #
 # Step	| Duration [s]	| Action
 # ------+---------------+-----------------------------------
-#	0	|	-			| get ready
+#	0	|	-			| get ready ('readyCountdownSeconds' seconds countdown)
 #	1	|	60			| full plank 1
-#	2	|		20		| rest
+#	2	|		n		| rest during 'restBetweenExercicesSeconds' seconds
 #	3	|	30			| elbow plank 2
-#	4	|		20		| rest
+#	4	|		n		| rest during 'restBetweenExercicesSeconds' seconds
 #	5	|	30			| raised leg elbow plank
-#	6	|		20		| rest
+#	6	|		n		| rest during 'restBetweenExercicesSeconds' seconds
 #	7	|	30			| raised leg (other leg) elbow plank
-#	8	|		20		| rest
+#	8	|		n		| rest during 'restBetweenExercicesSeconds' seconds
 #	9	|	30			| side elbow plank
-#	10	|		20		| rest
+#	10	|		n		| rest during 'restBetweenExercicesSeconds' seconds
 #	11	|	30			| side elbow plank (other side)
-#	12	|		20		| rest
+#	12	|		n		| rest during 'restBetweenExercicesSeconds' seconds
 #	13	|	30			| full plank 2
-#	14	|		20		| rest
+#	14	|		n		| rest during 'restBetweenExercicesSeconds' seconds
 #	15	|	60			| elbow plank 2
 #	16	|	-			| end
 #
@@ -109,13 +118,13 @@ else if (step == 3) {
 		step = step + 1;
 		myDurationSeconds = SUUNTO_DURATION;
 		}
-	else { prefix = "ELBO"; }
+	else { prefix = "ELBOW"; }
 	}
 
 
-/***************************
- * Raised leg plank (leg1) *
- **************************/
+/*********************************
+ * Raised leg elbow plank (leg1) *
+ ********************************/
 else if (step == 5) {
 	endOfStepSeconds = myDurationSeconds + halfDurationSeconds_difficult;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
@@ -123,13 +132,13 @@ else if (step == 5) {
 		step = step + 1;
 		myDurationSeconds = SUUNTO_DURATION;
 		}
-	else { prefix = "LG1"; }
+	else { prefix = "LEG1"; }
 	}
 
 
-/***************************
- * Raised leg plank (leg2) *
- **************************/
+/*********************************
+ * Raised leg elbow plank (leg2) *
+ ********************************/
 else if (step == 7) {
 	endOfStepSeconds = myDurationSeconds + halfDurationSeconds_difficult;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
@@ -137,13 +146,13 @@ else if (step == 7) {
 		step = step + 1;
 		myDurationSeconds = SUUNTO_DURATION;
 		}
-	else { prefix = "LG2"; }
+	else { prefix = "LEG2"; }
 	}
 
 
-/**********************
- * Side plank (side1) *
- *********************/
+/****************************
+ * Side elbow plank (side1) *
+ ***************************/
 else if (step == 9) {
 	endOfStepSeconds = myDurationSeconds + halfDurationSeconds_difficult;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
@@ -151,13 +160,13 @@ else if (step == 9) {
 		step = step + 1;
 		myDurationSeconds = SUUNTO_DURATION;
 		}
-	else { prefix = "SD1"; }
+	else { prefix = "SIDE1"; }
 	}
 
 
-/**********************
- * Side plank (side2) *
- *********************/
+/****************************
+ * Side elbow plank (side2) *
+ ***************************/
 else if (step == 11) {
 	endOfStepSeconds = myDurationSeconds + halfDurationSeconds_difficult;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
@@ -165,7 +174,7 @@ else if (step == 11) {
 		step = step + 1;
 		myDurationSeconds = SUUNTO_DURATION;
 		}
-	else { prefix = "SD2"; }
+	else { prefix = "SIDE2"; }
 	}
 
 
@@ -193,7 +202,7 @@ else if (step == 15) {
 		step = step + 1;
 		myDurationSeconds = SUUNTO_DURATION;
 		}
-	else { prefix = "ELBO"; }
+	else { prefix = "ELBOW"; }
 	}
 
 
