@@ -1,6 +1,6 @@
 /*
 ######################################### Pilates ###################################################
-# version : 20190711
+# version : 20190717
 #
 # "Five minute plank", source :
 #	https://www.darebee.com/workouts/five-minute-plank-workout.html
@@ -99,59 +99,37 @@ else if (step == 2) {
 	}
 
 
-/*********************************
- * Raised leg elbow plank (leg1) *
- ********************************/
-else if (step == 3) {
+/****************************************
+ * Raised leg elbow plank (leg1 + leg2) *
+ ***************************************/
+else if ((step == 3) || (step==4)) {
 	endOfStepSeconds = myDurationSeconds + halfDurationSeconds_difficult;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
 		Suunto.alarmBeep();
 		step = step + 1;
 		myDurationSeconds = SUUNTO_DURATION;
 		}
-	else { prefix = "LEG1"; }
+	else {
+		if (step == 3) { prefix = "LEG1"; }
+		else { prefix = "LEG2"; }
+		}
 	}
 
 
-/*********************************
- * Raised leg elbow plank (leg2) *
- ********************************/
-else if (step == 4) {
+/************************************
+ * Side elbow plank (side1 + side2) *
+ ***********************************/
+else if ((step == 5) || (step == 6)) {
 	endOfStepSeconds = myDurationSeconds + halfDurationSeconds_difficult;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
 		Suunto.alarmBeep();
 		step = step + 1;
 		myDurationSeconds = SUUNTO_DURATION;
 		}
-	else { prefix = "LEG2"; }
-	}
-
-
-/****************************
- * Side elbow plank (side1) *
- ***************************/
-else if (step == 5) {
-	endOfStepSeconds = myDurationSeconds + halfDurationSeconds_difficult;
-	if (SUUNTO_DURATION > endOfStepSeconds) {
-		Suunto.alarmBeep();
-		step = step + 1;
-		myDurationSeconds = SUUNTO_DURATION;
+	else {
+		if (step == 5) { prefix = "SIDE1"; }
+		else { prefix = "SIDE2"; }
 		}
-	else { prefix = "SIDE1"; }
-	}
-
-
-/****************************
- * Side elbow plank (side2) *
- ***************************/
-else if (step == 6) {
-	endOfStepSeconds = myDurationSeconds + halfDurationSeconds_difficult;
-	if (SUUNTO_DURATION > endOfStepSeconds) {
-		Suunto.alarmBeep();
-		step = step + 1;
-		myDurationSeconds = SUUNTO_DURATION;
-		}
-	else { prefix = "SIDE2"; }
 	}
 
 
