@@ -1,6 +1,6 @@
 /*
 ######################################### VMA 2xNxAm rBs RCs ########################################
-# version : 20190523
+# version : 20190901
 #
 # DESCRIPTION :
 #	- type :			VMA
@@ -45,7 +45,6 @@
 #	myDurationSeconds = 0			don't edit	TODO: redundant with 'currentFastRun_startPointSeconds' ?
 #	myResultVar = 0					don't edit
 #	restDurationSeconds = 0			don't edit
-#	runId = 0						don't edit	TODO: this is never displayed anymore. Fix it
 #	secondsLeft = 0					don't edit
 #	step = 0						don't edit
 #
@@ -84,7 +83,6 @@ if (step < 1) {
 		/* Press the "LAP" watch button to go for the first run */
 		if (SUUNTO_LAP_NUMBER > 1) {
 			Suunto.alarmBeep();
-			runId = 1;
 			step = 1;
 			currentFastRun_startPointKm = SUUNTO_DISTANCE;
 			currentFastRun_startPointSeconds = SUUNTO_DURATION;
@@ -113,18 +111,11 @@ else if (step>0 && step<=stepOfLastRun && mod(step,2)==1) {
 		/* YES : RUN IS OVER */
 		Suunto.alarmBeep();
 		step = step + 1;
-		runId = runId + 1;
 		myDurationSeconds = SUUNTO_DURATION;
 		}
 	else {
 		/* NOT YET */
 
-		/* BASIC MODE, JUST DISPLAYING 'RUN n' */
-/*
-		prefix = "RUN";
-		myResultVar = runId;
-		postfix="";
-*/
 
 		/* "Virtual Partner" MODE
 
