@@ -15,7 +15,11 @@
 #		After the 'warmUpMinimumDurationMinutes' is over, the watch displays 'H 0 T'
 #
 #	RUNS :
-#		The watch displays "RUN 1" during the 1st fast run, "RUN 2" during the 2nd fast run, and so on.
+#		The watch is in 'Virtual Partner' mode during fast runs : considering a virtual partner running at the target pace,
+#		the watch will display the distance between you and the virtual partner :
+#			d < 0 : you're running slower than the virtual partner
+#			d = 0 : you're running EXACTLY at the target pace
+#			d > 0 : you're running faster than the virtual partner
 #
 #	RESTS :
 #		During rests, the watch displays the number of remaining seconds : "RST n S".
@@ -35,8 +39,8 @@
 #	targetPacePerKm_minutes = 3			can be edited
 #	targetPacePerKm_seconds = 50		can be edited
 #
-#	endOfStepKm = 0					don't edit
-#	endOfStepSeconds = 0			don't edit
+#	endOfStepKm = 0						don't edit
+#	endOfStepSeconds = 0				don't edit
 
 #	currentFastRun_startPointKm = 0			don't edit
 #	currentFastRun_startPointSeconds = 0	don't edit
@@ -60,7 +64,7 @@
 /* While in sport mode do this once per second */
 
 
-/* this looks redundant but is required actually */
+/* this looks redundant but is required anyway */
 prefix = "";
 RESULT = myResultVar;
 postfix = "";
