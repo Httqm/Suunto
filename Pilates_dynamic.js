@@ -1,17 +1,13 @@
 /*
-######################################### Pilates ###################################################
-# version : 20190717
+######################################### Pilates dynamic ###########################################
+# version : 20200421
 #
-# "Five minute plank", source :
-#	https://www.darebee.com/workouts/five-minute-plank-workout.html
-#	via : http://barbichette.fr/gainage-abdos-programme-dexercices/
-#
-#	Full plank :				60 sec
-#	Elbow plank :				30 sec
-#	Raised leg elbow plank :	30 sec each leg
-#	Side elbow plank :			30 sec each side
-#	Full plank :				30 sec
-#	Elbow plank :				60 sec
+#	Push-up plank				:	60 sec
+#	Touch other shoulder plank	:	60 sec
+#	Ankles & elbows plank		:	30 sec
+#	Touch knee plank			:	60 sec
+#	Push-up plank				:	30 sec
+#	Back plank					:	60 sec
 #
 #	NB:	this Suunto program has a 'difficultyPercent' setting (see below) that allows extending / shortening
 #		the exercices duration. The durations above are applied when set to 100%.
@@ -22,15 +18,13 @@
 # Step	| Duration [s]	| Action
 # ------+---------------+-----------------------------------
 #	0	|	-			| get ready ('readyCountdownSeconds' seconds countdown)
-#	1	|	60			| full plank 1
-#	2	|	30			| elbow plank 1
-#	3	|	30			| raised leg elbow plank
-#	4	|	30			| raised leg (other leg) elbow plank
-#	5	|	30			| side elbow plank
-#	6	|	30			| side elbow plank (other side)
-#	7	|	30			| full plank 2
-#	8	|	60			| elbow plank 2
-#	9	|	-			| end
+#	1	|	60			| push-up
+#	2	|	60			| shoulder
+#	3	|	30			| ankles & elbows
+#	4	|	60			| knee
+#	5	|	30			| push-up
+#	6	|	60			| back
+#	7	|	-			| end
 #
 #
 # VARIABLES :
@@ -71,9 +65,9 @@ if (step < 1) {
 	}
 
 
-/****************
- * Full plank 1 *
- ***************/
+/*******************
+ * Push-up plank 1 *
+ ******************/
 else if (step == 1) {
 	endOfStepSeconds = myDurationSeconds + fullDurationSeconds_difficult;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
@@ -81,90 +75,84 @@ else if (step == 1) {
 		step = step + 1;
 		myDurationSeconds = SUUNTO_DURATION;
 		}
-	else { prefix = "FULL"; }
+	else { prefix = "P-UPS"; }
 	}
 
 
-/*****************
- * Elbow plank 1 *
- ****************/
+/******************************
+ * Touch other shoulder plank *
+ *****************************/
 else if (step == 2) {
-	endOfStepSeconds = myDurationSeconds + halfDurationSeconds_difficult;
-	if (SUUNTO_DURATION > endOfStepSeconds) {
-		Suunto.alarmBeep();
-		step = step + 1;
-		myDurationSeconds = SUUNTO_DURATION;
-		}
-	else { prefix = "ELBOW"; }
-	}
-
-
-/****************************************
- * Raised leg elbow plank (leg1 + leg2) *
- ***************************************/
-else if ((step == 3) || (step==4)) {
-	endOfStepSeconds = myDurationSeconds + halfDurationSeconds_difficult;
-	if (SUUNTO_DURATION > endOfStepSeconds) {
-		Suunto.alarmBeep();
-		step = step + 1;
-		myDurationSeconds = SUUNTO_DURATION;
-		}
-	else {
-		if (step == 3) { prefix = "LEG1"; }
-		else { prefix = "LEG2"; }
-		}
-	}
-
-
-/************************************
- * Side elbow plank (side1 + side2) *
- ***********************************/
-else if ((step == 5) || (step == 6)) {
-	endOfStepSeconds = myDurationSeconds + halfDurationSeconds_difficult;
-	if (SUUNTO_DURATION > endOfStepSeconds) {
-		Suunto.alarmBeep();
-		step = step + 1;
-		myDurationSeconds = SUUNTO_DURATION;
-		}
-	else {
-		if (step == 5) { prefix = "SIDE1"; }
-		else { prefix = "SIDE2"; }
-		}
-	}
-
-
-/****************
- * Full plank 2 *
- ***************/
-else if (step == 7) {
-	endOfStepSeconds = myDurationSeconds + halfDurationSeconds_difficult;
-	if (SUUNTO_DURATION > endOfStepSeconds) {
-		Suunto.alarmBeep();
-		step = step + 1;
-		myDurationSeconds = SUUNTO_DURATION;
-		}
-	else { prefix = "FULL"; }
-	}
-
-
-/*****************
- * Elbow plank 2 *
- ****************/
-else if (step == 8) {
 	endOfStepSeconds = myDurationSeconds + fullDurationSeconds_difficult;
 	if (SUUNTO_DURATION > endOfStepSeconds) {
 		Suunto.alarmBeep();
 		step = step + 1;
 		myDurationSeconds = SUUNTO_DURATION;
 		}
-	else { prefix = "ELBOW"; }
+	else { prefix = "SHULD"; }
+	}
+
+
+/*************************
+ * Ankles & elbows plank *
+ ************************/
+else if (step == 3) {
+	endOfStepSeconds = myDurationSeconds + halfDurationSeconds_difficult;
+	if (SUUNTO_DURATION > endOfStepSeconds) {
+		Suunto.alarmBeep();
+		step = step + 1;
+		myDurationSeconds = SUUNTO_DURATION;
+		}
+	else { prefix = "ANKL"; }
+	}
+
+
+/********************
+ * Touch knee plank *
+ *******************/
+else if (step == 4) {
+	endOfStepSeconds = myDurationSeconds + fullDurationSeconds_difficult;
+	if (SUUNTO_DURATION > endOfStepSeconds) {
+		Suunto.alarmBeep();
+		step = step + 1;
+		myDurationSeconds = SUUNTO_DURATION;
+		}
+	else { prefix = "KNEE"; }
+	}
+
+
+/*******************
+ * Push-up plank 2 *
+ ******************/
+else if (step == 5) {
+	endOfStepSeconds = myDurationSeconds + halfDurationSeconds_difficult;
+	if (SUUNTO_DURATION > endOfStepSeconds) {
+		Suunto.alarmBeep();
+		step = step + 1;
+		myDurationSeconds = SUUNTO_DURATION;
+		}
+	else { prefix = "P-UPS"; }
+	}
+
+
+/**************
+ * Back plank *
+ *************/
+else if (step == 6) {
+	endOfStepSeconds = myDurationSeconds + fullDurationSeconds_difficult;
+	if (SUUNTO_DURATION > endOfStepSeconds) {
+		Suunto.alarmBeep();
+		step = step + 1;
+		myDurationSeconds = SUUNTO_DURATION;
+		}
+	else { prefix = "BACK"; }
 	}
 
 
 /*************
  * THE END ! *
  ************/
-else if (step > 8) { prefix = "END"; }
+else if (step > 6) { prefix = "END"; }
 
 
 RESULT = endOfStepSeconds - SUUNTO_DURATION;
